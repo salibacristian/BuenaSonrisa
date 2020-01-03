@@ -1,0 +1,23 @@
+<div class="container">
+    <form>
+      <div class="imgcontainer">
+        <img src="./assets/images/auto.png" alt="Avatar" class="avatar">
+      </div>
+      <div style="padding: 5%;">
+        <mat-form-field class="example-full-width">
+          <input matInput type="email" placeholder="EMAIL" [(ngModel)]="usuario" name="user">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input matInput type="password" placeholder="CLAVE" [(ngModel)]="clave" name="password">
+        </mat-form-field>
+    
+          <button class="btnFooter" mat-raised-button (click)="completar('prueba@prueba.com','a12345')">Prueba</button>
+          <button class="btnFooter" mat-raised-button (click)="completar('Concesionaria2@Concesionaria2.com','a12345')">Concesionaria2</button>
+          <button class="btnFooter" mat-raised-button (click)="completar('Concesionaria3@Concesionaria3.com','a12345')">Concesionaria3</button>
+      <br>
+  
+        <button class="btnFooter" mat-raised-button color="primary" (click)="Entrar()">Ingresar</button>
+        <button class="btnFooter" mat-stroked-button color="primary" routerLink="/register">Registrar</button>
+      </div>
+    </form>
+  </div>

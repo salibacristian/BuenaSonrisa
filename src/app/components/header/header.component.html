@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">
+    <div style="display: inline;margin: 5px;" *ngIf="!loading; else loadingTemplate">{{user ? user.razonSocial : ''}} </div>
+    <ng-template #loadingTemplate>
+      <mat-spinner style="display: inline;" [diameter]="25"></mat-spinner>
+    </ng-template>
+  
+    <!-- This fills the remaining space of the current row -->
+    <span class="example-fill-remaining-space"></span>
+  
+    <button mat-raised-button color="primary" (click)='logout()' routerLink="/login">Cerrar Sesion</button>
+  </mat-toolbar>

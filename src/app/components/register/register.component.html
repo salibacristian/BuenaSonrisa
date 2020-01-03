@@ -1,0 +1,19 @@
+<div class="example-container">
+    <mat-form-field>
+            <input type="email" matInput placeholder="Email" [(ngModel)]="concesionaria.email" name="email">
+    </mat-form-field>
+    <mat-form-field>
+            <input type="password" matInput placeholder="Clave" [(ngModel)]="concesionaria.clave" name="clave">
+    </mat-form-field>
+    <mat-form-field>
+        <input type="text" matInput placeholder="Razon Social" [(ngModel)]="concesionaria.razonSocial" name="razonSocial">
+</mat-form-field>
+<mat-form-field>
+        <input type="text" matInput placeholder="Telefono" [(ngModel)]="concesionaria.tel" name="tel">
+</mat-form-field>
+<mat-form-field>
+        <input type="text" matInput placeholder="Localidad" [(ngModel)]="concesionaria.localidad" name="localidad">
+</mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="Register()">Registrar</button>
+</div>

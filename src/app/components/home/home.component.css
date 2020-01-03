@@ -1,0 +1,13 @@
+#contentToConvert{
+    border: 1px solid blue;
+    width: 100%;
+}
+
+td{
+    text-align: center;
+    padding: 5px;
+}
+
+th{
+    padding: 5px;
+}
