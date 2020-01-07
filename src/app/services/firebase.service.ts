@@ -101,8 +101,7 @@ export class FirebaseService {
     db.collection("users").add({
       email: user.email,
       password: user.password,
-      firstname: user.firstname,
-      surname: user.surname,
+      name: user.name,
       birthDate: user.birthDate,
       gender: user.gender,
       type: user.type,

@@ -1,18 +1,46 @@
 <div class="example-container">
     <mat-form-field>
-            <input type="email" matInput placeholder="Email" [(ngModel)]="concesionaria.email" name="email">
+            <input type="email" matInput placeholder="Email" [(ngModel)]="user.email" name="email">
     </mat-form-field>
     <mat-form-field>
-            <input type="password" matInput placeholder="Clave" [(ngModel)]="concesionaria.clave" name="clave">
+            <input type="password" matInput placeholder="Clave" [(ngModel)]="user.password" name="pass">
     </mat-form-field>
     <mat-form-field>
-        <input type="text" matInput placeholder="Razon Social" [(ngModel)]="concesionaria.razonSocial" name="razonSocial">
+        <input type="text" matInput placeholder="Apellido y Nombre" [(ngModel)]="user.name" name="name">
 </mat-form-field>
 <mat-form-field>
-        <input type="text" matInput placeholder="Telefono" [(ngModel)]="concesionaria.tel" name="tel">
+        <input type="date" matInput placeholder="Nacimiento" [(ngModel)]="user.birthDate" name="birthdate">
 </mat-form-field>
 <mat-form-field>
-        <input type="text" matInput placeholder="Localidad" [(ngModel)]="concesionaria.localidad" name="localidad">
+        <mat-label>Genero</mat-label>
+  <mat-select [(ngModel)]="user.gender" name="gender">
+    <mat-option value="1">
+        Masculino
+    </mat-option>
+    <mat-option value="2">
+        Femenino
+    </mat-option>
+    <mat-option value="3">
+        Indefinido
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+        <mat-label>Rol</mat-label>
+        <mat-select [(ngModel)]="user.type" name="type">
+          <mat-option value="1">
+                Administrador
+          </mat-option>
+          <mat-option value="2">
+                Cliente
+          </mat-option>
+          <mat-option value="3">
+                Especialista
+          </mat-option>
+          <mat-option value="4">
+                Receptionista
+            </mat-option>
+        </mat-select>
 </mat-form-field>
 
     <button mat-raised-button color="primary" (click)="Register()">Registrar</button>

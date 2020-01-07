@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {FirebaseService} from "../../services/firebase.service";
-// import { Concesionaria } from "../../model/Concesionaria";
+import { User } from "../../model/User";
 
 @Component({
   selector: 'app-register',
@@ -12,13 +12,13 @@ export class RegisterComponent implements OnInit {
 
   constructor( private firebaseService: FirebaseService) { }
 
-  // concesionaria: Concesionaria = new Concesionaria('','','','','');
+  user: User = new User(1,'','','',new Date(),3);
 
   ngOnInit() {
   }
 
   Register(){
-    // this.firebaseService.registrarConcesionaria(this.concesionaria);
+    this.firebaseService.register(this.user);
   }
 }
 
