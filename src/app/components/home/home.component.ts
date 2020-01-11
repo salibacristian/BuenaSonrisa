@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit {
 
 @Component({
   selector: 'dialog-overview-example-dialog',
-  templateUrl: 'dialog-overview-example-dialog.html',
+  templateUrl: '../../dialogs/dialog-overview-example-dialog.html',
 })
 export class DialogOverviewExampleDialog {
 
