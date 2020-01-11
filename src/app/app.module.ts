@@ -23,6 +23,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatMomentDateModule, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import { MAT_DATE_FORMATS, DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
 import { MomentUtcDateAdapter } from './moment-utc-date-adapter';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
@@ -34,6 +35,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { CsvExporterComponent } from './components/csv-exporter/csv-exporter.component';
 import { PdfExporterComponent } from './components/pdf-exporter/pdf-exporter.component';
+import {DialogOverviewExampleDialog} from './components/home/home.component';
 
 
 @NgModule({
@@ -44,8 +46,10 @@ import { PdfExporterComponent } from './components/pdf-exporter/pdf-exporter.com
     HeaderComponent,
     HomeComponent,
     CsvExporterComponent,
-    PdfExporterComponent
+    PdfExporterComponent,
+    DialogOverviewExampleDialog        
   ],
+  entryComponents: [DialogOverviewExampleDialog],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -62,7 +66,7 @@ import { PdfExporterComponent } from './components/pdf-exporter/pdf-exporter.com
     ,MatButtonModule,MatProgressSpinnerModule
     ,MatInputModule,MatFormFieldModule,MatSelectModule,MatToolbarModule
     ,MatDatepickerModule, // provides moment date adapter
-    MatMomentDateModule, 
+    MatMomentDateModule, MatDialogModule
     // AngularFontAwesomeModule,FontAwesomeModule
   ],
   providers: [ { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
