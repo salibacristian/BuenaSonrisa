@@ -8,6 +8,12 @@ import { FirebaseService } from "../../services/firebase.service";
 })
 export class HomeComponent implements OnInit {
 
+  myFilter = (d: Date): boolean => {
+    var date = new Date(d);
+    const day = date.getDay();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6;
+  }
 
   // array = [
   //   { Column1: "Row 1", Column2: "Row 1", Column3: "Row 1" },

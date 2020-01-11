@@ -6,31 +6,8 @@
   <button mat-raised-button color="primary" routerLink="/alta-vehiculo">Ingresar Vehiculo</button>
 </mat-card>
 
-<div>
-  <mat-card>
-    <table id="contentToConvert">
-      <thead>
-        <tr>
-          <th>marca</th>
-          <th>modelo</th>
-          <th>año</th>
-          <th>kilometros</th>
-          <th>tipo</th>
-          <th>foto</th>
-         
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let vehiculo of vehiculos">
-          <td>{{vehiculo.marca}}</td>
-          <td>{{vehiculo.modelo}}</td>
-          <td>{{vehiculo.year}}</td>
-          <td>{{vehiculo.kilometros}}</td>
-          <!--  <td> <img width="100px" src="{{vehiculo.tipo | tipoVehiculo}}"/></td> --> 
-          <td>{{vehiculo.foto}}</td>
-        </tr>       
-      </tbody>
-    </table>
-
-  </mat-card>
-</div>
+<mat-form-field class="example-full-width">
+  <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Choose a date">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>

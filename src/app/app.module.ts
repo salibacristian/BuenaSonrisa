@@ -19,6 +19,11 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatMomentDateModule, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
+import { MAT_DATE_FORMATS, DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
+import { MomentUtcDateAdapter } from './moment-utc-date-adapter';
+
 
 
 import { AngularFireModule } from '@angular/fire';
@@ -53,10 +58,16 @@ import { PdfExporterComponent } from './components/pdf-exporter/pdf-exporter.com
     // }),
     BrowserAnimationsModule,
     NgbModule, 
-    MatTabsModule,MatIconModule,MatCardModule,MatButtonModule,MatProgressSpinnerModule,MatInputModule,MatFormFieldModule,MatSelectModule,MatToolbarModule
+    MatTabsModule,MatIconModule,MatCardModule
+    ,MatButtonModule,MatProgressSpinnerModule
+    ,MatInputModule,MatFormFieldModule,MatSelectModule,MatToolbarModule
+    ,MatDatepickerModule, // provides moment date adapter
+    MatMomentDateModule, 
     // AngularFontAwesomeModule,FontAwesomeModule
   ],
-  providers: [],
+  providers: [ { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+  { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+  { provide: DateAdapter, useClass: MomentUtcDateAdapter },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
