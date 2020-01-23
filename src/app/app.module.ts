@@ -24,7 +24,7 @@ import { MatMomentDateModule, MAT_MOMENT_DATE_FORMATS } from '@angular/material-
 import { MAT_DATE_FORMATS, DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
 import { MomentUtcDateAdapter } from './moment-utc-date-adapter';
 import {MatDialogModule} from '@angular/material/dialog';
-
+import {MatListModule} from '@angular/material/list';
 
 
 import { AngularFireModule } from '@angular/fire';
@@ -35,7 +35,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { CsvExporterComponent } from './components/csv-exporter/csv-exporter.component';
 import { PdfExporterComponent } from './components/pdf-exporter/pdf-exporter.component';
-import {DialogOverviewExampleDialog} from './components/home/home.component';
+import {DialogOverviewExampleDialog} from './components/calendar/calendar.component';
+import { AppointmentComponent } from './components/appointment/appointment.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { MinutePipe } from './pipes/minute.pipe';
+import { FilterSchedulerPipe } from './pipes/filter-scheduler.pipe';
 
 
 @NgModule({
@@ -47,7 +51,11 @@ import {DialogOverviewExampleDialog} from './components/home/home.component';
     HomeComponent,
     CsvExporterComponent,
     PdfExporterComponent,
-    DialogOverviewExampleDialog        
+    DialogOverviewExampleDialog,
+    AppointmentComponent,
+    CalendarComponent,
+    MinutePipe,
+    FilterSchedulerPipe      
   ],
   entryComponents: [DialogOverviewExampleDialog],
   imports: [
@@ -66,7 +74,7 @@ import {DialogOverviewExampleDialog} from './components/home/home.component';
     ,MatButtonModule,MatProgressSpinnerModule
     ,MatInputModule,MatFormFieldModule,MatSelectModule,MatToolbarModule
     ,MatDatepickerModule, // provides moment date adapter
-    MatMomentDateModule, MatDialogModule
+    MatMomentDateModule, MatDialogModule,MatListModule
     // AngularFontAwesomeModule,FontAwesomeModule
   ],
   providers: [ { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },

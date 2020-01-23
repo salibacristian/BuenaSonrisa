@@ -1,20 +1,7 @@
 <app-header></app-header>
 
-<!-- <mat-card>
-  <app-pdf-exporter [data]="getTable()"></app-pdf-exporter>
-  <app-csv-exporter [data]="vehiculos"></app-csv-exporter>  
-  <button mat-raised-button color="primary" routerLink="/alta-vehiculo">Ingresar Vehiculo</button>
-</mat-card> -->
-
-<mat-form-field class="example-full-width">
-  <input matInput [matDatepickerFilter]="myFilter" 
-  [min]="minDate" 
-  [matDatepicker]="picker" 
-  placeholder="Eliga el día" 
-  [(ngModel)] = "selectedDate" 
-  (dateChange)="sarasa($event)">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-
-<button mat-raised-button (click)="openDialog()">Pick one</button>
+<mat-card>
+  <!-- <app-pdf-exporter [data]="getTable()"></app-pdf-exporter>
+  <app-csv-exporter [data]="vehiculos"></app-csv-exporter>   -->
+  <button mat-raised-button color="primary" routerLink="/newAppointment">Nuevo Turno</button>
+</mat-card>

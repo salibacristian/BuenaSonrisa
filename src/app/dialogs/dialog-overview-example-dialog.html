@@ -1,11 +1,17 @@
-<h1 mat-dialog-title>Hi {{data.name}}</h1>
+<h1 mat-dialog-title>{{data.title}}</h1>
 <div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-  <mat-form-field>
-    <input matInput [(ngModel)]="data.animal">
-  </mat-form-field>
+
+  <mat-selection-list #schedule> 
+    <mat-list-option *ngFor="let s of data.schedule | filterScheduler: data.appointments" [value]="s">
+      {{s.hour}}:{{s.min | minute}}
+    </mat-list-option>
+  </mat-selection-list>
+  
+  <p>
+    Options selected: {{schedule.selectedOptions.selected.length}}
+  </p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="schedule.selectedOptions.selected" cdkFocusInitial>Listo</button>
 </div>
