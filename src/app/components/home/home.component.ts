@@ -1,5 +1,6 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from "../../services/firebase.service";
+
 
 @Component({
   selector: 'app-home',
@@ -8,38 +9,29 @@ import { FirebaseService } from "../../services/firebase.service";
 })
 export class HomeComponent implements OnInit {
 
-
-  // array = [
-  //   { Column1: "Row 1", Column2: "Row 1", Column3: "Row 1" },
-  //   { Column1: "Row 2", Column2: "Row 2", Column3: "Row 2" },
-  //   { Column1: "Row 3", Column2: "Row 3", Column3: "Row 3" },
-  //   { Column1: "Row 4", Column2: "Row 4", Column3: "Row 4" },
-  //   { Column1: "Row 5", Column2: "Row 5", Column3: "Row 5" },
-  //   { Column1: "Row 6", Column2: "Row 6", Column3: "Row 6" }
-  // ];
-
-  vehiculos= [];
+  
 
   constructor(private firebaseService: FirebaseService){
 
   }
 
+  
   ngOnInit() {
-    this.getVehiculos();
+    // this.getVehiculos();
   }
 
-  async getVehiculos(){
-    // var querySnapshot  = await this.firebaseService.getVehiculos();
-    //  this.vehiculos = querySnapshot.docs.map(function(x){
-    //     return x.data();
-    //   });
+  // async getVehiculos(){
+  //   // var querySnapshot  = await this.firebaseService.getVehiculos();
+  //   //  this.vehiculos = querySnapshot.docs.map(function(x){
+  //   //     return x.data();
+  //   //   });
 
     
-  }
+  // }
 
-  getTable(){
-
-    return document.getElementById('contentToConvert');
-  }
+  // getTable(){
+  //   return document.getElementById('contentToConvert');
+  // }
 
 }
+

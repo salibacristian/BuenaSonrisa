@@ -19,6 +19,12 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatMomentDateModule, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
+import { MAT_DATE_FORMATS, DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
+import { MomentUtcDateAdapter } from './moment-utc-date-adapter';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatListModule} from '@angular/material/list';
 
 
 import { AngularFireModule } from '@angular/fire';
@@ -29,6 +35,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { CsvExporterComponent } from './components/csv-exporter/csv-exporter.component';
 import { PdfExporterComponent } from './components/pdf-exporter/pdf-exporter.component';
+import {DialogOverviewExampleDialog} from './components/calendar/calendar.component';
+import { AppointmentComponent } from './components/appointment/appointment.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { MinutePipe } from './pipes/minute.pipe';
+import { FilterSchedulerPipe } from './pipes/filter-scheduler.pipe';
 
 
 @NgModule({
@@ -39,8 +50,14 @@ import { PdfExporterComponent } from './components/pdf-exporter/pdf-exporter.com
     HeaderComponent,
     HomeComponent,
     CsvExporterComponent,
-    PdfExporterComponent
+    PdfExporterComponent,
+    DialogOverviewExampleDialog,
+    AppointmentComponent,
+    CalendarComponent,
+    MinutePipe,
+    FilterSchedulerPipe      
   ],
+  entryComponents: [DialogOverviewExampleDialog],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -53,10 +70,16 @@ import { PdfExporterComponent } from './components/pdf-exporter/pdf-exporter.com
     // }),
     BrowserAnimationsModule,
     NgbModule, 
-    MatTabsModule,MatIconModule,MatCardModule,MatButtonModule,MatProgressSpinnerModule,MatInputModule,MatFormFieldModule,MatSelectModule,MatToolbarModule
+    MatTabsModule,MatIconModule,MatCardModule
+    ,MatButtonModule,MatProgressSpinnerModule
+    ,MatInputModule,MatFormFieldModule,MatSelectModule,MatToolbarModule
+    ,MatDatepickerModule, // provides moment date adapter
+    MatMomentDateModule, MatDialogModule,MatListModule
     // AngularFontAwesomeModule,FontAwesomeModule
   ],
-  providers: [],
+  providers: [ { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+  { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+  { provide: DateAdapter, useClass: MomentUtcDateAdapter },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,6 +4,7 @@ import * as firebase from "firebase/app";
 import { firebaseConfig } from "../../environments/environment";
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { User } from "../model/User";
+import { Appointment } from "../model/Appointment";
 
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
@@ -19,7 +20,7 @@ import { JwtHelper } from "angular2-jwt";
 })
 export class FirebaseService {
 
- user = null;
+  user = null;
 
   jwtHelper: JwtHelper = new JwtHelper();
 
@@ -89,12 +90,12 @@ export class FirebaseService {
 
   logout() {
     localStorage.removeItem('token');
-    firebase.auth().signOut().then(function() {
+    firebase.auth().signOut().then(function () {
       // Sign-out successful.
-    }).catch(function(error) {
+    }).catch(function (error) {
       // An error happened.
     });
-  } 
+  }
 
   addUser(user: User) {
     var db = firebase.firestore();
@@ -147,10 +148,24 @@ export class FirebaseService {
   async getUsers() {
     // return await db.collection("usuarios").get();
     let usrsRef = await db.collection('users').get();
-    return usrsRef;
-    // for(let u of usrsRef.docs) {
-    //     console.log(u.id, u.data())
-    // } 
+    var rv = [];
+    for (let u of usrsRef.docs) {
+      rv.push(u.data() as User);
+    }
+    return rv;
+  }
+
+  async getAppointments(date: Date, specialistId: string) {
+
+    let ref = await db.collection('appointments').get();
+    let appointments: Array<Appointment> = [];
+    for (let doc of ref.docs) {
+      console.log(doc.data());
+      var appointment: Appointment = doc.data() as Appointment;
+      if (appointment.date == date && appointment.specialistId == specialistId && appointment.status == 1)
+        appointments.push(appointment);
+    }
+    return appointments;
   }
 
   // async getResultados() {
@@ -159,4 +174,18 @@ export class FirebaseService {
   //   return resultados;
 
   // }
+
+  async addAppointments(appointments: Array<Appointment>) {
+    var user = firebase.auth().currentUser;
+    var db = firebase.firestore();
+    appointments.forEach(appointment => {
+      db.collection("appointments").add({
+        specialistId: appointment.specialistId,
+        clientId: user.uid,
+        status: appointment.status,
+        date: appointment.date.toDateString()
+      });
+    });
+  }
+
 }

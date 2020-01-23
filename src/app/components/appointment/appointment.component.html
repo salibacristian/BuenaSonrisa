@@ -1,0 +1,14 @@
+<app-header></app-header>
+<div class="example-container">
+<mat-form-field>
+        <mat-label>Seleccione Especialista</mat-label>
+  <mat-select [(ngModel)]="selectedSpecialistId" name="specialistId">
+    <mat-option *ngFor="let specialist of specialists" [value]= "specialist.id">
+        {{specialist.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<app-calendar [specialistId] = "selectedSpecialistId" (selectDate) = onSelectedDates($event)></app-calendar>
+
+    <button mat-raised-button color="primary" (click)="Register()">Registrar</button>
+</div>
