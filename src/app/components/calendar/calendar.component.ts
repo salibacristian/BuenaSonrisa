@@ -60,6 +60,7 @@ export class CalendarComponent implements OnInit {
       var selectedDates = [];
       selectedOptions.forEach(element => {
         var date = new Date(this.selectedDate);
+        date.setDate(date.getDate() + 1);  //FIX
         date.setHours(element.hour);
         date.setMinutes(element.min);
         selectedDates.push(date);

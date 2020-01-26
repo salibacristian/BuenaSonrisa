@@ -183,7 +183,7 @@ export class FirebaseService {
         specialistId: appointment.specialistId,
         clientId: user.uid,
         status: appointment.status,
-        date: appointment.date.toDateString()
+        date: appointment.date.toLocaleString()
       });
     });
   }
