@@ -26,7 +26,7 @@ export class CalendarComponent implements OnInit {
   appointments = Array<Appointment>();
 
   public async onSelectDate(event) {
-    this.appointments = await this.firebaseService.getAppointments(this.selectedDate, this.specialistId);
+    this.appointments = await this.firebaseService.getAppointmentsByDate(this.selectedDate, this.specialistId);
     this.openDialog();
   }
 

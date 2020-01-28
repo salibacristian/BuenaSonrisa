@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import * as firebase from "firebase/app";
 import { firebaseConfig } from "../../environments/environment";
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { User } from "../model/User";
+import { User, UserType } from "../model/User";
 import { Appointment } from "../model/Appointment";
 
 firebase.initializeApp(firebaseConfig);
@@ -155,7 +155,14 @@ export class FirebaseService {
     return rv;
   }
 
-  async getAppointments(date: Date, specialistId: string) {
+  async getUser(id: string) {
+    let usrsRef = await db.collection('users')
+     .where("id", "==", id)
+    .get();    
+    return usrsRef.docs.shift().data() as User;
+  }
+
+  async getAppointmentsByDate(date: Date, specialistId: string) {
 
     let ref = await db.collection('appointments').get();
     let appointments: Array<Appointment> = [];
@@ -168,12 +175,26 @@ export class FirebaseService {
     return appointments;
   }
 
-  // async getResultados() {
-  //   // return await db.collection("usuarios").get();
-  //   let resultados = await db.collection('resultados').get();
-  //   return resultados;
+  async getAppointments() {
+    var rv = null;
+    var userAuth = await firebase.auth().currentUser;
+    var user = await this.getUser(userAuth.uid);
+    var field = null;
 
-  // }
+    switch (user.type as UserType) {
+      case UserType.Cliente:
+        field = "clientId";
+        break;
+        case UserType.Especialista:
+          field = "specialistId";
+          break;
+    }
+    if(field)
+      rv = await db.collection('appointments').where(field, "==", user.id).get();
+    else rv = await db.collection('appointments').get();
+
+     return rv;
+  }
 
   async addAppointments(appointments: Array<Appointment>) {
     var user = firebase.auth().currentUser;

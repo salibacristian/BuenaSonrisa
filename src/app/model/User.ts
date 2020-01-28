@@ -18,7 +18,7 @@ export class User{
 
 }
 
-enum UserType {
+export enum UserType {
     Administrador = 1,
     Cliente = 2,
     Especialista = 3,

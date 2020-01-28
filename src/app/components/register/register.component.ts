@@ -10,11 +10,22 @@ import { User } from "../../model/User";
 })
 export class RegisterComponent implements OnInit {
 
-  constructor( private firebaseService: FirebaseService) { }
+  constructor( private firebaseService: FirebaseService) {
+    this.userTypes = [
+      {name: 'Administrador', value: 1},
+      {name: 'Cliente', value: 2},
+      {name: 'Especialista', value: 3},
+      {name: 'Receptionista', value: 4}
+    ];
+   }
 
+   userTypes = [];
+  
   user: User = new User(1,'','','',new Date(),3);
 
   ngOnInit() {
+   
+    
   }
 
   Register(){
