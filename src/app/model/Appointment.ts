@@ -1,7 +1,9 @@
 export class Appointment{
     id: string;
     specialistId: string;
+    specialistName: string;
     clientId: string;
+    clientName: string;
     createdUserId: string;
     status: AppointmentStatus;
     date: Date;

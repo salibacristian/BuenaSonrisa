@@ -8,6 +8,8 @@
 </mat-card>
 <mat-list role="list">
   <mat-list-item role="listitem" *ngFor="let appointment of appointments">
-   {{appointment.date}}
+   {{appointment.date}} hs 
+   <p style="margin: 10px;" *ngIf="currentUser.type != 3"> Especialista: {{appointment.specialistName}} </p> 
+   <p style="margin: 10px;" *ngIf="currentUser.type != 2"> Paciente: {{appointment.clientName}} </p>
   </mat-list-item>
 </mat-list>

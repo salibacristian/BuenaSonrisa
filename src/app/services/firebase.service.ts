@@ -38,6 +38,10 @@ export class FirebaseService {
     });
   }
 
+  async getAuthCurrentUser() {
+    return firebase.auth().currentUser;
+  }
+
 
   register(user: User) {
     var router = this.router;
@@ -176,7 +180,7 @@ export class FirebaseService {
   }
 
   async getAppointments() {
-    var rv = null;
+    var rv =null;
     var userAuth = await firebase.auth().currentUser;
     var user = await this.getUser(userAuth.uid);
     var field = null;
@@ -192,6 +196,16 @@ export class FirebaseService {
     if(field)
       rv = await db.collection('appointments').where(field, "==", user.id).get();
     else rv = await db.collection('appointments').get();
+
+    // for (let index = 0; index < rv.docs.length; index++) {
+    //   const doc = rv.docs[index];
+    //   var appointment = doc.data() as Appointment;
+    //   var specialist = await this.getUser(appointment.specialistId);
+    //    appointment.specialistName = specialist.name;
+    //    var client = await this.getUser(appointment.clientId);
+    //    appointment.clientName = client.name;
+    // }
+   
 
      return rv;
   }
