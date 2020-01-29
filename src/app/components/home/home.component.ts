@@ -11,6 +11,7 @@ export class HomeComponent implements OnInit {
 
   appointments = [];
   currentUser  = null;
+  columnsToDisplay = [];
   constructor(private firebaseService: FirebaseService) {
 
   }
@@ -40,6 +41,8 @@ export class HomeComponent implements OnInit {
          appointment.clientName = client.name;
       }
       console.log(this.appointments);
+      
+       
     }
 
   }

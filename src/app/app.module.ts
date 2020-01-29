@@ -25,6 +25,7 @@ import { MAT_DATE_FORMATS, DateAdapter, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentUtcDateAdapter } from './moment-utc-date-adapter';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
+import {MatTableModule} from '@angular/material/table';
 
 
 import { AngularFireModule } from '@angular/fire';
@@ -40,6 +41,7 @@ import { AppointmentComponent } from './components/appointment/appointment.compo
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { MinutePipe } from './pipes/minute.pipe';
 import { FilterSchedulerPipe } from './pipes/filter-scheduler.pipe';
+import { AppointmentsListComponent } from './components/appointments-list/appointments-list.component';
 
 
 @NgModule({
@@ -55,7 +57,8 @@ import { FilterSchedulerPipe } from './pipes/filter-scheduler.pipe';
     AppointmentComponent,
     CalendarComponent,
     MinutePipe,
-    FilterSchedulerPipe      
+    FilterSchedulerPipe,
+    AppointmentsListComponent      
   ],
   entryComponents: [DialogOverviewExampleDialog],
   imports: [
@@ -74,7 +77,7 @@ import { FilterSchedulerPipe } from './pipes/filter-scheduler.pipe';
     ,MatButtonModule,MatProgressSpinnerModule
     ,MatInputModule,MatFormFieldModule,MatSelectModule,MatToolbarModule
     ,MatDatepickerModule, // provides moment date adapter
-    MatMomentDateModule, MatDialogModule,MatListModule
+    MatMomentDateModule, MatDialogModule,MatListModule,MatTableModule
     // AngularFontAwesomeModule,FontAwesomeModule
   ],
   providers: [ { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
