@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private firebaseService: FirebaseService) {
-    this.firebaseService.getCurrentUser();
+
   }
 
   ngOnInit() {

@@ -21,14 +21,14 @@ import { JwtHelper } from "angular2-jwt";
 })
 export class FirebaseService {
 
-  user = null;
 
   jwtHelper: JwtHelper = new JwtHelper();
 
-  constructor(private router: Router,  private storage: AngularFireStorage) { }
+  constructor(private router: Router, private storage: AngularFireStorage) {
+  }
 
-   //Tarea para subir archivo
-   public tareaCloudStorage(nombreArchivo: string, datos: any) {
+  //Tarea para subir archivo
+  public tareaCloudStorage(nombreArchivo: string, datos: any) {
     return this.storage.upload(nombreArchivo, datos);
   }
 
@@ -41,12 +41,6 @@ export class FirebaseService {
     let token = localStorage.getItem("token");
     return token && !this.jwtHelper.isTokenExpired(token);
 
-  }
-
-  async getCurrentUser() {
-    firebase.auth().onAuthStateChanged(async user => {
-      this.user = user;
-    });
   }
 
   async getAuthCurrentUser() {
@@ -64,6 +58,8 @@ export class FirebaseService {
         res.user.getIdToken()
           .then(function (token) {
             localStorage.setItem('token', token);
+            localStorage.setItem('prueba', JSON.stringify(user));
+
             router.navigate(['/']);
           });
       })
@@ -81,15 +77,15 @@ export class FirebaseService {
 
   login(user, pass) {
     var router = this.router;
+    var getUser = this.getUser;
     firebase.auth().signInWithEmailAndPassword(user, pass)
-      .then(function (res) {
+      .then(async function (res) {
         console.log(res);
-        res.user.getIdToken()
-          .then(function (token) {
-            localStorage.setItem('token', token);
-            router.navigate(['/']);
-          });
-
+        var token = await res.user.getIdToken();
+        localStorage.setItem('token', token);
+        var userDb = await getUser(res.user.uid);
+        localStorage.setItem('prueba', JSON.stringify(userDb));
+        router.navigate(['/']);
       })
       .catch(function (error) {
         var errorCode = error.code;
@@ -105,6 +101,8 @@ export class FirebaseService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('prueba');
+
     firebase.auth().signOut().then(function () {
       // Sign-out successful.
     }).catch(function (error) {
@@ -173,8 +171,8 @@ export class FirebaseService {
 
   async getUser(id: string) {
     let usrsRef = await db.collection('users')
-     .where("id", "==", id)
-    .get();    
+      .where("id", "==", id)
+      .get();
     return usrsRef.docs.shift().data() as User;
   }
 
@@ -191,22 +189,20 @@ export class FirebaseService {
     return appointments;
   }
 
-  async getAppointments() {
-    var rv =null;
-    var userAuth = await firebase.auth().currentUser;
-    var user = await this.getUser(userAuth.uid);
+  async getAppointments(userId: string, userType: number) {
+    var rv = null;
     var field = null;
 
-    switch (user.type as UserType) {
+    switch (userType as UserType) {
       case UserType.Cliente:
         field = "clientId";
         break;
-        case UserType.Especialista:
-          field = "specialistId";
-          break;
+      case UserType.Especialista:
+        field = "specialistId";
+        break;
     }
-    if(field)
-      rv = await db.collection('appointments').where(field, "==", user.id).get();
+    if (field)
+      rv = await db.collection('appointments').where(field, "==", userId).get();
     else rv = await db.collection('appointments').get();
 
     // for (let index = 0; index < rv.docs.length; index++) {
@@ -217,9 +213,9 @@ export class FirebaseService {
     //    var client = await this.getUser(appointment.clientId);
     //    appointment.clientName = client.name;
     // }
-   
 
-     return rv;
+
+    return rv;
   }
 
   async addAppointments(appointments: Array<Appointment>) {

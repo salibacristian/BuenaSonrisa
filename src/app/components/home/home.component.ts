@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from "../../services/firebase.service";
+import { User } from "../../model/User";
 
 
 @Component({
@@ -10,7 +11,7 @@ import { FirebaseService } from "../../services/firebase.service";
 export class HomeComponent implements OnInit {
 
   appointments = [];
-  currentUser  = null;
+  currentUser: User  = JSON.parse(localStorage.getItem('prueba'));
   columnsToDisplay = [];
   constructor(private firebaseService: FirebaseService) {
 
@@ -18,16 +19,13 @@ export class HomeComponent implements OnInit {
 
 
   async ngOnInit() {
-    // setTimeout(this.getAppointments, 5000);   
-    // await this.firebaseService.getCurrentUser();
-    // await this.getAppointments(); 
+     await this.getAppointments(); 
 
   }
 
   async getAppointments() {
-    var user: firebase.User = await this.firebaseService.getAuthCurrentUser();
-    this.currentUser = await this.firebaseService.getUser(user.uid);
-    var querySnapshot = await this.firebaseService.getAppointments();
+
+    var querySnapshot = await this.firebaseService.getAppointments(this.currentUser.id, this.currentUser.type);
     if (querySnapshot.docs.length) {
       this.appointments = querySnapshot.docs.map(function (x) {
         return x.data();
