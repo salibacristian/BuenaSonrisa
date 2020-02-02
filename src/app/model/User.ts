@@ -6,14 +6,16 @@ export class User{
     name: string;
     birthDate: Date;
     gender: Gender;
+    imageUrl: string;
 
-    constructor(type: UserType, email: string, password: string, name: string, birthDate: Date, gender: Gender){
+    constructor(type: UserType, email: string, password: string, name: string, birthDate: Date, gender: Gender, imageUrl: string){
         this.email = email;
         this.password = password;
         this.name = name;
         this.birthDate = birthDate;
         this.gender = gender;
         this.type = type;
+        this.imageUrl = imageUrl;
     }   
 
 }

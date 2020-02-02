@@ -5,6 +5,7 @@ import { firebaseConfig } from "../../environments/environment";
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { User, UserType } from "../model/User";
 import { Appointment } from "../model/Appointment";
+import { AngularFireStorage } from '@angular/fire/storage';
 
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
@@ -24,7 +25,17 @@ export class FirebaseService {
 
   jwtHelper: JwtHelper = new JwtHelper();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,  private storage: AngularFireStorage) { }
+
+   //Tarea para subir archivo
+   public tareaCloudStorage(nombreArchivo: string, datos: any) {
+    return this.storage.upload(nombreArchivo, datos);
+  }
+
+  //Referencia del archivo
+  public referenciaCloudStorage(nombreArchivo: string) {
+    return this.storage.ref(nombreArchivo);
+  }
 
   isAuthenticated() {
     let token = localStorage.getItem("token");
@@ -110,6 +121,7 @@ export class FirebaseService {
       birthDate: user.birthDate,
       gender: user.gender,
       type: user.type,
+      imageUrl: user.imageUrl,
       id: user.id
     })
       .then(function (docRef) {

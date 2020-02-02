@@ -29,6 +29,7 @@ import {MatTableModule} from '@angular/material/table';
 
 
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import {firebaseConfig} from "../environments/environment";
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -42,6 +43,9 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { MinutePipe } from './pipes/minute.pipe';
 import { FilterSchedulerPipe } from './pipes/filter-scheduler.pipe';
 import { AppointmentsListComponent } from './components/appointments-list/appointments-list.component';
+import { UploadImageComponent } from './components/upload-image/upload-image.component';
+
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -58,13 +62,16 @@ import { AppointmentsListComponent } from './components/appointments-list/appoin
     CalendarComponent,
     MinutePipe,
     FilterSchedulerPipe,
-    AppointmentsListComponent      
+    AppointmentsListComponent,
+    UploadImageComponent      
   ],
   entryComponents: [DialogOverviewExampleDialog],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireStorageModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     FormsModule,
     HttpModule,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import {FirebaseService} from "../../services/firebase.service";
 import { User } from "../../model/User";
@@ -9,7 +9,7 @@ import { User } from "../../model/User";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
+ 
   constructor( private firebaseService: FirebaseService) {
     this.userTypes = [
       {name: 'Administrador', value: 1},
@@ -21,11 +21,15 @@ export class RegisterComponent implements OnInit {
 
    userTypes = [];
   
-  user: User = new User(1,'','','',new Date(),3);
+  user: User = new User(1,'','','',new Date(),3, '');
 
   ngOnInit() {
    
     
+  }
+
+  onImageUpload(url){
+    this.user.imageUrl = url;
   }
 
   Register(){

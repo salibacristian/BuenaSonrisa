@@ -33,6 +33,7 @@
           </mat-option>      
         </mat-select>
 </mat-form-field>
+<app-upload-image (imageUrl) = onImageUpload($event)></app-upload-image>
 
     <button mat-raised-button color="primary" (click)="Register()">Registrar</button>
 </div>
