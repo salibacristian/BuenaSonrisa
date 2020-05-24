@@ -8,7 +8,7 @@ import * as firebase from "firebase/app";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  user = {name: '', imageUrl: ''};
+  currentUser = {email: '', name: '', imageUrl: ''};
 
   constructor(private firebaseService: FirebaseService) { 
   }
@@ -17,10 +17,29 @@ export class HeaderComponent implements OnInit {
     this.firebaseService.logout();
   }
 
-  ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem("prueba"));
+  async ngOnInit() {
 
+    this.testUserSession();
+    // this.user = JSON.parse(localStorage.getItem("prueba"));
+    await this.delay(5000);
+     this.currentUser.email = sessionStorage.getItem('username');
       
+  }
+
+  public delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
+
+  public testUserSession(){
+    firebase.auth().onAuthStateChanged(function(user) {
+      console.log(user);
+      if (user) {
+        // User is signed in.
+        sessionStorage.setItem('username', user.email);
+      } else {
+        // No user is signed in.
+      }
+    });
   }
 
 }
