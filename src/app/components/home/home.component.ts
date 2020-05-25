@@ -11,39 +11,43 @@ import { User } from "../../model/User";
 export class HomeComponent implements OnInit {
 
   appointments = [];
-  currentUser: User  = JSON.parse(localStorage.getItem('prueba'));
+  // currentUser: User  = JSON.parse(localStorage.getItem('prueba'));
+  currentUser: User  = null;
   columnsToDisplay = [];
   constructor(private firebaseService: FirebaseService) {
 
   }
 
-
-  async ngOnInit() {
-     await this.getAppointments(); 
-
+  ngOnInit(): void {
   }
 
-  async getAppointments() {
 
-    var querySnapshot = await this.firebaseService.getAppointments(this.currentUser.id, this.currentUser.type);
-    if (querySnapshot.docs.length) {
-      this.appointments = querySnapshot.docs.map(function (x) {
-        return x.data();
-      });
+  // async ngOnInit() {
+  //    await this.getAppointments(); 
 
-      for (let index = 0; index < this.appointments.length; index++) {
-        const appointment = this.appointments[index];
-        var specialist = await this.firebaseService.getUser(appointment.specialistId);
-         appointment.specialistName = specialist.name;
-         var client = await this.firebaseService.getUser(appointment.clientId);
-         appointment.clientName = client.name;
-      }
-      console.log(this.appointments);
+  // }
+
+  // async getAppointments() {
+
+  //   var querySnapshot = await this.firebaseService.getAppointments(this.currentUser.id, this.currentUser.type);
+  //   if (querySnapshot.docs.length) {
+  //     this.appointments = querySnapshot.docs.map(function (x) {
+  //       return x.data();
+  //     });
+
+  //     for (let index = 0; index < this.appointments.length; index++) {
+  //       const appointment = this.appointments[index];
+  //       var specialist = await this.firebaseService.getUser(appointment.specialistId);
+  //        appointment.specialistName = specialist.name;
+  //        var client = await this.firebaseService.getUser(appointment.clientId);
+  //        appointment.clientName = client.name;
+  //     }
+  //     console.log(this.appointments);
       
        
-    }
+  //   }
 
-  }
+  // }
 
   // getTable(){
   //   return document.getElementById('contentToConvert');

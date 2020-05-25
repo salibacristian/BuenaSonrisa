@@ -58,7 +58,7 @@ export class FirebaseService {
         res.user.getIdToken()
           .then(function (token) {
             localStorage.setItem('token', token);
-            localStorage.setItem('prueba', JSON.stringify(user));
+            // localStorage.setItem('prueba', JSON.stringify(user));
 
             router.navigate(['/']);
           });
@@ -84,7 +84,7 @@ export class FirebaseService {
         var token = await res.user.getIdToken();
         localStorage.setItem('token', token);
         var userDb = await getUser(res.user.uid);
-        localStorage.setItem('prueba', JSON.stringify(userDb));
+        // localStorage.setItem('prueba', JSON.stringify(userDb));
         router.navigate(['/']);
       })
       .catch(function (error) {
@@ -101,7 +101,7 @@ export class FirebaseService {
 
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('prueba');
+    // localStorage.removeItem('prueba');
 
     firebase.auth().signOut().then(function () {
       // Sign-out successful.
