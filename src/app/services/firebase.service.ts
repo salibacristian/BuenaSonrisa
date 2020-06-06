@@ -44,7 +44,7 @@ export class FirebaseService {
   }
 
   async getAuthCurrentUser() {
-    await this.delay(5000);//para que firebase tenga disponible el usuario actual
+    await this.delay(1000);//para que firebase tenga disponible el usuario actual
     var authCurrentUser = firebase.auth().currentUser;
     if(authCurrentUser)
       return await this.getUser(authCurrentUser.uid);
