@@ -6,6 +6,6 @@
     <mat-spinner diameter="50" *ngIf="!currentUser"></mat-spinner>
     <!-- This fills the remaining space of the current row -->
     <span class="example-fill-remaining-space"></span>
-  
+    <button class="btnFooter" mat-stroked-button color="primary" *ngIf="currentUser && currentUser.type == 1" routerLink="/register">Agregar Administrador</button>
     <button mat-raised-button color="primary" (click)='logout()' routerLink="/login">Cerrar Sesion</button>
   </mat-toolbar>

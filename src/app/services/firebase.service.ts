@@ -44,8 +44,16 @@ export class FirebaseService {
   }
 
   async getAuthCurrentUser() {
-    return firebase.auth().currentUser;
+    await this.delay(5000);//para que firebase tenga disponible el usuario actual
+    var authCurrentUser = firebase.auth().currentUser;
+    if(authCurrentUser)
+      return await this.getUser(authCurrentUser.uid);
+    else return null;
   }
+
+  public delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
 
 
   register(user: User, password: string) {
