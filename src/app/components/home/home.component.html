@@ -1,10 +1,14 @@
 <app-header></app-header>
 
-<mat-card>
+<mat-card *ngIf ="currentUser">
   <!-- <app-pdf-exporter [data]="getTable()"></app-pdf-exporter>
   <app-csv-exporter [data]="vehiculos"></app-csv-exporter>   -->
-  <button mat-raised-button color="primary" routerLink="/newAppointment">Nuevo Turno</button>
-   <!-- <button mat-raised-button color="primary" (click) = "getAppointments()">Mis Turnos</button> --> 
+  <button *ngIf="currentUser.type == 2" mat-raised-button color="primary" routerLink="/newAppointment">
+    <mat-icon aria-hidden="false">calendar_today</mat-icon>
+    Nuevo Turno</button>
+  <button *ngIf="currentUser.type == 3" mat-raised-button color="primary" routerLink="/newAppointment">
+    <mat-icon aria-hidden="false">schedule</mat-icon>
+    Mi Disponibilidad</button>
 </mat-card>
 
-<app-appointments-list [appointments] = "appointments" [currentUser] = "currentUser"></app-appointments-list>
+<!-- <app-appointments-list [appointments] = "appointments" [currentUser] = "currentUser"></app-appointments-list> -->
