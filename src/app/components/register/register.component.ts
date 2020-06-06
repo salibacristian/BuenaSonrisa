@@ -15,20 +15,29 @@ export class RegisterComponent implements OnInit {
   user: User = new User(1,'','',new Date(),3, '','',[]);
   password: string = '';
 
-  userTypes = [
-    {value: "Administrador", key: 1},
-    {value: "Paciente", key: 2},
-    {value: "Profesional", key: 3}
-  ];
+  userTypes = [];
   genders = [
     {value: "Masculino", key: 1},
     {value: "Femenino", key: 2},
     {value: "Indefinido", key: 3}
   ];
 
+  currentUser: User;
 
-  ngOnInit() { 
-
+  async ngOnInit() { 
+    this.currentUser = await this.firebaseService.getAuthCurrentUser();
+    if(!this.currentUser || this.currentUser.type != UserType.Administrador)
+    {
+      this.userTypes = [
+        {value: "Paciente", key: 2},
+        {value: "Profesional", key: 3}
+      ];
+    }
+    else{
+      this.userTypes = [
+        {value: "Administrador", key: 1},
+      ];
+    }
   }
 
   onImageUpload(url, principalImage){

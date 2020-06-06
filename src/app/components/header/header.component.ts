@@ -21,16 +21,11 @@ export class HeaderComponent implements OnInit {
 
     // this.testUserSession();
     // this.user = JSON.parse(localStorage.getItem("prueba"));
-    await this.delay(5000);//para que firebase tenga disponible el usuario actual
-    var authCurrentUser = await this.firebaseService.getAuthCurrentUser();
-    this.currentUser = await this.firebaseService.getUser(authCurrentUser.uid);
+    this.currentUser = await this.firebaseService.getAuthCurrentUser();
     //  this.currentUser.email = sessionStorage.getItem('username');
 
   }
 
-  public delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-}
 
   // public testUserSession(){
   //   firebase.auth().onAuthStateChanged(function(user) {
