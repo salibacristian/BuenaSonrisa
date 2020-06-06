@@ -4,8 +4,9 @@
     justify-content: center;
     align-items: center;
     height: 100%;
+}
   
-    .contenedor-formulario {
+    .formulario {
       width: 400px;
     }
   
@@ -14,9 +15,10 @@
       color: #FFFFFF;
       padding: 10px 20px;
       margin-bottom: 20px;
-      a {
-        text-decoration: underline;
-        color: #FFFFFF;
-      }
+      
     }
-  }
+    a {
+      text-decoration: underline;
+      color: #FFFFFF;
+    }
+  
