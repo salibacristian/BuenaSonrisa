@@ -1,39 +1,36 @@
 <div class="example-container">
-    <mat-form-field>
-            <input type="email" matInput placeholder="Email" [(ngModel)]="user.email" name="email">
-    </mat-form-field>
-    <mat-form-field>
-            <input type="password" matInput placeholder="Clave" [(ngModel)]="user.password" name="pass">
-    </mat-form-field>
-    <mat-form-field>
-        <input type="text" matInput placeholder="Apellido y Nombre" [(ngModel)]="user.name" name="name">
-</mat-form-field>
-<mat-form-field>
-        <input type="date" matInput placeholder="Nacimiento" [(ngModel)]="user.birthDate" name="birthdate">
-</mat-form-field>
-<mat-form-field>
-        <mat-label>Genero</mat-label>
-  <mat-select [(ngModel)]="user.gender" name="gender">
-    <mat-option value="1">
-        Masculino
-    </mat-option>
-    <mat-option value="2">
-        Femenino
-    </mat-option>
-    <mat-option value="3">
-        Indefinido
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field>
-        <mat-label>Rol</mat-label>
-        <mat-select [(ngModel)]="user.type" name="type">
-          <mat-option *ngFor="let type of userTypes" [value]="type.value">
-                {{type.name}}
-          </mat-option>      
-        </mat-select>
-</mat-form-field>
-<app-upload-image (imageUrl) = onImageUpload($event)></app-upload-image>
+  <mat-form-field>
+    <input type="email" matInput placeholder="Email" [(ngModel)]="user.email" name="email">
+  </mat-form-field>
+  <mat-form-field>
+    <input type="password" matInput placeholder="Clave" [(ngModel)]="password" name="pass">
+  </mat-form-field>
+  <mat-form-field>
+    <input type="text" matInput placeholder="Apellido y Nombre" [(ngModel)]="user.name" name="name">
+  </mat-form-field>
+  <mat-form-field>
+    <input type="date" matInput placeholder="Nacimiento" [(ngModel)]="user.birthDate" name="birthdate">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Genero</mat-label>
+    <mat-select [(ngModel)]="user.gender" name="gender">
+      <mat-option *ngFor="let gender of genders" [value]="gender.key">
+        {{gender.value}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Rol</mat-label>
+    <mat-select [(ngModel)]="user.type" name="type">
+      <mat-option *ngFor="let type of userTypes" [value]="type.key">
+        {{type.value}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-label>Foto de Perfil</mat-label>
+  <app-upload-image (imageUrl)="onImageUpload($event, true)"></app-upload-image>
+  <mat-label>Foto Secundaria</mat-label>
+  <app-upload-image (imageUrl)="onImageUpload($event, false)"></app-upload-image>
+  <button mat-raised-button color="primary" (click)="Register()">Registrar</button>
 
-    <button mat-raised-button color="primary" (click)="Register()">Registrar</button>
 </div>

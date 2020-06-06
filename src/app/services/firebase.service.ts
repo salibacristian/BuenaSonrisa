@@ -48,18 +48,16 @@ export class FirebaseService {
   }
 
 
-  register(user: User) {
+  register(user: User, password: string) {
     var router = this.router;
     var addUser = this.addUser;
-    firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+    firebase.auth().createUserWithEmailAndPassword(user.email, password)
       .then(function (res) {
         user.id = res.user.uid;
         addUser(user);
         res.user.getIdToken()
           .then(function (token) {
             localStorage.setItem('token', token);
-            // localStorage.setItem('prueba', JSON.stringify(user));
-
             router.navigate(['/']);
           });
       })
@@ -114,12 +112,13 @@ export class FirebaseService {
     var db = firebase.firestore();
     db.collection("users").add({
       email: user.email,
-      password: user.password,
       name: user.name,
       birthDate: user.birthDate,
       gender: user.gender,
       type: user.type,
       imageUrl: user.imageUrl,
+      imageUrl2: user.imageUrl2,
+      specialties: user.specialties,
       id: user.id
     })
       .then(function (docRef) {
@@ -194,10 +193,10 @@ export class FirebaseService {
     var field = null;
 
     switch (userType as UserType) {
-      case UserType.Cliente:
+      case UserType.Paciente:
         field = "clientId";
         break;
-      case UserType.Especialista:
+      case UserType.Profesional:
         field = "specialistId";
         break;
     }
