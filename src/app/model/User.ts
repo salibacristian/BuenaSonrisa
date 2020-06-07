@@ -8,10 +8,11 @@ export class User{
     imageUrl: string;
     imageUrl2: string;
     specialties: Array<string>;
+    availability: string;
 
     constructor(type: UserType, email: string, name: string
         , birthDate: Date, gender: Gender, imageUrl: string
-        , imageUrl2: string, specialties: Array<string>){
+        , imageUrl2: string, specialties: Array<string>, availability: string){
         this.email = email;
         this.name = name;
         this.birthDate = birthDate;
@@ -20,6 +21,7 @@ export class User{
         this.imageUrl = imageUrl;
         this.imageUrl2 = imageUrl2;
         this.specialties = specialties;
+        this.availability = availability;
     }   
 
 }
@@ -35,3 +37,13 @@ export enum Gender {
     Femenino = 2,
     Indefinido = 3
 }
+
+export interface Availability {
+    Hora: number;
+    lunes: { hora: number, seleccionado: boolean};
+    martes: { hora: number, seleccionado: boolean};
+    miercoles: { hora: number, seleccionado: boolean};
+    jueves: { hora: number, seleccionado: boolean};
+    viernes: { hora: number, seleccionado: boolean};
+    sabado: { hora: number, seleccionado: boolean};
+  }

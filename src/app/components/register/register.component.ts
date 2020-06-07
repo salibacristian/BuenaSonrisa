@@ -12,7 +12,7 @@ export class RegisterComponent implements OnInit {
   constructor( private firebaseService: FirebaseService) {
    }
   
-  user: User = new User(1,'','',new Date(),3, '','',[]);
+  user: User = new User(1,'','',new Date(),3, '','',[],'');
   password: string = '';
 
   userTypes = [];

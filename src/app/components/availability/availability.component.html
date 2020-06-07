@@ -1,0 +1,50 @@
+<button mat-raised-button color="primary" (click)="save()" routerLink="/home">
+  <mat-icon aria-hidden="false">reply</mat-icon>
+  Volver</button>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="Hora">
+    <mat-header-cell *matHeaderCellDef> Hora </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.Hora}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Lunes">
+    <mat-header-cell *matHeaderCellDef> Lunes </mat-header-cell>
+    <mat-cell *matCellDef="let element"> 
+      <mat-checkbox [(ngModel)]= "element.lunes.seleccionado"></mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Martes">
+    <mat-header-cell *matHeaderCellDef> Martes </mat-header-cell>
+    <mat-cell *matCellDef="let element"> 
+      <mat-checkbox [(ngModel)]= "element.martes.seleccionado"></mat-checkbox>
+    </mat-cell>  </ng-container>
+
+  <ng-container matColumnDef="Miercoles">
+    <mat-header-cell *matHeaderCellDef> Miercoles </mat-header-cell>
+    <mat-cell *matCellDef="let element"> 
+      <mat-checkbox [(ngModel)]= "element.miercoles.seleccionado"></mat-checkbox>
+    </mat-cell>  </ng-container>
+
+  <ng-container matColumnDef="Jueves">
+    <mat-header-cell *matHeaderCellDef> Jueves </mat-header-cell>
+    <mat-cell *matCellDef="let element"> 
+      <mat-checkbox [(ngModel)]= "element.jueves.seleccionado"></mat-checkbox>
+    </mat-cell>  </ng-container>
+
+  <ng-container matColumnDef="Viernes">
+    <mat-header-cell *matHeaderCellDef> Viernes </mat-header-cell>
+    <mat-cell *matCellDef="let element"> 
+      <mat-checkbox [(ngModel)]= "element.viernes.seleccionado"></mat-checkbox>
+    </mat-cell>  </ng-container>
+
+  <ng-container matColumnDef="Sabado">
+    <mat-header-cell *matHeaderCellDef> Sabado </mat-header-cell>
+    <mat-cell *matCellDef="let element"> 
+      <mat-checkbox [(ngModel)]= "element.sabado.seleccionado"></mat-checkbox>
+    </mat-cell>  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
