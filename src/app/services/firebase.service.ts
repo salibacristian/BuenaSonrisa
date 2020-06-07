@@ -39,7 +39,9 @@ export class FirebaseService {
 
   isAuthenticated() {
     let token = localStorage.getItem("token");
-    return token && !this.jwtHelper.isTokenExpired(token);
+    let decodedToken = this.jwtHelper.decodeToken(token);
+    let sessionUserName = sessionStorage.getItem('userName');
+    return token && !this.jwtHelper.isTokenExpired(token) && decodedToken.email == sessionUserName;
 
   }
 
@@ -63,6 +65,7 @@ export class FirebaseService {
       .then(function (res) {
         user.id = res.user.uid;
         addUser(user);
+        sessionStorage.setItem('userName',user.email);
         res.user.getIdToken()
           .then(function (token) {
             localStorage.setItem('token', token);
@@ -83,14 +86,12 @@ export class FirebaseService {
 
   login(user, pass) {
     var router = this.router;
-    var getUser = this.getUser;
     firebase.auth().signInWithEmailAndPassword(user, pass)
       .then(async function (res) {
         console.log(res);
         var token = await res.user.getIdToken();
         localStorage.setItem('token', token);
-        var userDb = await getUser(res.user.uid);
-        // localStorage.setItem('prueba', JSON.stringify(userDb));
+        sessionStorage.setItem('userName',user);
         router.navigate(['/']);
       })
       .catch(function (error) {
@@ -107,8 +108,8 @@ export class FirebaseService {
 
   logout() {
     localStorage.removeItem('token');
-    // localStorage.removeItem('prueba');
-
+    sessionStorage.removeItem('userName');
+    
     firebase.auth().signOut().then(function () {
       // Sign-out successful.
     }).catch(function (error) {
