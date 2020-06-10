@@ -12,13 +12,15 @@ export class HomeComponent implements OnInit {
 
   appointments = [];
   // currentUser: User  = JSON.parse(localStorage.getItem('prueba'));
-  currentUser: User  = null;
+  currentUser: User;
   columnsToDisplay = [];
   constructor(private firebaseService: FirebaseService) {
 
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.currentUser = await this.firebaseService.getAuthCurrentUser();
+
   }
 
 

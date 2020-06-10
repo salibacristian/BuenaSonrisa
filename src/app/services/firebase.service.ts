@@ -48,14 +48,14 @@ export class FirebaseService {
   async getAuthCurrentUser() {
     await this.delay(1000);//para que firebase tenga disponible el usuario actual
     var authCurrentUser = firebase.auth().currentUser;
-    if(authCurrentUser)
+    if (authCurrentUser)
       return await this.getUser(authCurrentUser.uid);
     else return null;
   }
 
   public delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-}
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
 
   register(user: User, password: string) {
@@ -136,6 +136,21 @@ export class FirebaseService {
       .catch(function (error) {
         console.error("Error adding document: ", error);
       });
+  }
+
+  async setAvailability(availability) {
+    var authCurrentUser = firebase.auth().currentUser;
+    var db = firebase.firestore();
+    let users = db.collection('users')
+    let activeRef = await users
+      .where('id', '==', authCurrentUser.uid)
+      .get();
+
+    activeRef.docs.forEach(function (doc) {
+      let availabilityJson = JSON.stringify(availability);
+      db.collection("users").doc(doc.id)
+        .update({ availability: availabilityJson });
+    });
   }
 
   // async saveResult(juego, gano) {   

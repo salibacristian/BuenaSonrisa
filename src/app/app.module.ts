@@ -26,7 +26,7 @@ import { MomentUtcDateAdapter } from './moment-utc-date-adapter';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
@@ -46,6 +46,7 @@ import { AppointmentsListComponent } from './components/appointments-list/appoin
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { AvailabilityComponent } from './components/availability/availability.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MinutePipe,
     FilterSchedulerPipe,
     AppointmentsListComponent,
-    UploadImageComponent      
+    UploadImageComponent,
+    AvailabilityComponent      
   ],
   entryComponents: [DialogOverviewExampleDialog],
   imports: [
@@ -84,7 +86,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ,MatButtonModule,MatProgressSpinnerModule
     ,MatInputModule,MatFormFieldModule,MatSelectModule,MatToolbarModule
     ,MatDatepickerModule, // provides moment date adapter
-    MatMomentDateModule, MatDialogModule,MatListModule,MatTableModule
+    MatMomentDateModule, MatDialogModule,MatListModule,MatTableModule,MatCheckboxModule
     // AngularFontAwesomeModule,FontAwesomeModule
   ],
   providers: [ { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
