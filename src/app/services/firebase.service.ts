@@ -254,4 +254,13 @@ export class FirebaseService {
     });
   }
 
+  async addSpecialty(name: string) {
+    var user = firebase.auth().currentUser;
+    var db = firebase.firestore();
+      db.collection("specialties").add({
+        name: name
+      });
+
+  }
+
 }

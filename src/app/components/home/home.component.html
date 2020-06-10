@@ -9,6 +9,9 @@
   <button *ngIf="currentUser.type == 3" mat-raised-button color="primary" routerLink="/availability">
     <mat-icon aria-hidden="false">schedule</mat-icon>
     Mi Disponibilidad</button>
+    <button *ngIf="currentUser.type == 1" mat-raised-button color="primary" (click)="openSpecialtyDialog()">
+      <mat-icon aria-hidden="false">add</mat-icon>
+      Cargar Especialidad</button>
 </mat-card>
 
 <!-- <app-appointments-list [appointments] = "appointments" [currentUser] = "currentUser"></app-appointments-list> -->
