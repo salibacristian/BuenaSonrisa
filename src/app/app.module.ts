@@ -38,6 +38,8 @@ import { HomeComponent } from './components/home/home.component';
 import { CsvExporterComponent } from './components/csv-exporter/csv-exporter.component';
 import { PdfExporterComponent } from './components/pdf-exporter/pdf-exporter.component';
 import {DialogOverviewExampleDialog} from './components/calendar/calendar.component';
+import {AddSpecialtyDialog} from './components/home/home.component';
+import {UserSpecialtiesDialog} from './components/home/home.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { MinutePipe } from './pipes/minute.pipe';
@@ -59,6 +61,8 @@ import { AvailabilityComponent } from './components/availability/availability.co
     CsvExporterComponent,
     PdfExporterComponent,
     DialogOverviewExampleDialog,
+    AddSpecialtyDialog,
+    UserSpecialtiesDialog,
     AppointmentComponent,
     CalendarComponent,
     MinutePipe,
@@ -67,7 +71,7 @@ import { AvailabilityComponent } from './components/availability/availability.co
     UploadImageComponent,
     AvailabilityComponent      
   ],
-  entryComponents: [DialogOverviewExampleDialog],
+  entryComponents: [DialogOverviewExampleDialog, AddSpecialtyDialog, UserSpecialtiesDialog],
   imports: [
     BrowserModule,
     AppRoutingModule,

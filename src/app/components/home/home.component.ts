@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FirebaseService } from "../../services/firebase.service";
 import { User } from "../../model/User";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class HomeComponent implements OnInit {
   // currentUser: User  = JSON.parse(localStorage.getItem('prueba'));
   currentUser: User;
   columnsToDisplay = [];
-  constructor(private firebaseService: FirebaseService) {
+  constructor(private firebaseService: FirebaseService, public dialog: MatDialog) {
 
   }
 
@@ -23,37 +24,72 @@ export class HomeComponent implements OnInit {
 
   }
 
+  openSpecialtyDialog(): void {
+    const dialogRef = this.dialog.open(AddSpecialtyDialog, {
+      width: '250px',
+      data: {
+        title: 'Nueva Especialidad',
+        specialty: ""
+      }
+    });
 
-  // async ngOnInit() {
-  //    await this.getAppointments(); 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      if (result.length)
+        this.firebaseService.addSpecialty(result);
+    });
+  }
 
-  // }
+  async openUserSpecialtiesDialog() {
+    var specialties = await this.firebaseService.getSpecialties();
+    const dialogRef = this.dialog.open(UserSpecialtiesDialog, {
+      width: '500px',
+      data: {
+        title: 'Mis Especialidades',
+        specialties: specialties,
+        userSpecialties: this.currentUser.specialties
+      }
+    });
 
-  // async getAppointments() {
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      if (result.length){
+        this.currentUser.specialties = result;
+        this.firebaseService.addUserSpecialties(result);
+      }
+    });
+  }
+}
 
-  //   var querySnapshot = await this.firebaseService.getAppointments(this.currentUser.id, this.currentUser.type);
-  //   if (querySnapshot.docs.length) {
-  //     this.appointments = querySnapshot.docs.map(function (x) {
-  //       return x.data();
-  //     });
+@Component({
+  selector: 'add-specialty-dialog',
+  templateUrl: '../../dialogs/AddSpecialtyDialog.html',
+})
+export class AddSpecialtyDialog {
 
-  //     for (let index = 0; index < this.appointments.length; index++) {
-  //       const appointment = this.appointments[index];
-  //       var specialist = await this.firebaseService.getUser(appointment.specialistId);
-  //        appointment.specialistName = specialist.name;
-  //        var client = await this.firebaseService.getUser(appointment.clientId);
-  //        appointment.clientName = client.name;
-  //     }
-  //     console.log(this.appointments);
-      
-       
-  //   }
+  constructor(public dialogRef: MatDialogRef<AddSpecialtyDialog>
+    , @Inject(MAT_DIALOG_DATA) public data: string) { }
 
-  // }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
-  // getTable(){
-  //   return document.getElementById('contentToConvert');
-  // }
+}
+
+@Component({
+  selector: 'user-specialties-dialog',
+  templateUrl: '../../dialogs/userSpecialtiesDialog.html',
+})
+export class UserSpecialtiesDialog {
+
+  constructor(public dialogRef: MatDialogRef<UserSpecialtiesDialog>
+    , @Inject(MAT_DIALOG_DATA) public data: Array<string>) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
 }
 

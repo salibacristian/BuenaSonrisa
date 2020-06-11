@@ -1,0 +1,15 @@
+<h1 mat-dialog-title style="text-align: center;">{{data.title}}</h1>
+<div mat-dialog-content>
+  <mat-form-field style="width: 100%;">
+    <!-- <mat-label>Elegir:</mat-label> -->
+    <mat-select [(ngModel)]="data.userSpecialties" multiple>
+      <mat-option *ngFor="let speciality of data.specialties" [value]="speciality.name">
+        {{speciality.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" style="margin: auto;">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data.userSpecialties" cdkFocusInitial style="margin: auto;">Aceptar</button>
+</div>
