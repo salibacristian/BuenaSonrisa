@@ -15,6 +15,7 @@ import "firebase/auth";
 import "firebase/firestore";
 
 import { JwtHelper } from "angular2-jwt";
+import { Specialty } from '../model/Specialty';
 
 @Injectable({
   providedIn: 'root'
@@ -65,7 +66,7 @@ export class FirebaseService {
       .then(function (res) {
         user.id = res.user.uid;
         addUser(user);
-        sessionStorage.setItem('userName',user.email);
+        sessionStorage.setItem('userName', user.email);
         res.user.getIdToken()
           .then(function (token) {
             localStorage.setItem('token', token);
@@ -91,7 +92,7 @@ export class FirebaseService {
         console.log(res);
         var token = await res.user.getIdToken();
         localStorage.setItem('token', token);
-        sessionStorage.setItem('userName',user);
+        sessionStorage.setItem('userName', user);
         router.navigate(['/']);
       })
       .catch(function (error) {
@@ -109,7 +110,7 @@ export class FirebaseService {
   logout() {
     localStorage.removeItem('token');
     sessionStorage.removeItem('userName');
-    
+
     firebase.auth().signOut().then(function () {
       // Sign-out successful.
     }).catch(function (error) {
@@ -257,10 +258,34 @@ export class FirebaseService {
   async addSpecialty(name: string) {
     var user = firebase.auth().currentUser;
     var db = firebase.firestore();
-      db.collection("specialties").add({
-        name: name
-      });
+    db.collection("specialties").add({
+      name: name
+    });
 
   }
+
+  async addUserSpecialties(specialties: Array<string>) {
+    var userAuth = firebase.auth().currentUser;
+    var db = firebase.firestore();
+    var activeRef = await db.collection('users')
+      .where('id', '==', userAuth.uid)
+      .get();
+
+    activeRef.docs.forEach(function (doc) {
+      db.collection("users").doc(doc.id)
+        .update({ specialties: specialties });
+    });
+
+  }
+
+  async getSpecialties() {
+    let ref = await db.collection('specialties').get();
+    var rv = [];
+    for (let u of ref.docs) {
+      rv.push(u.data() as Specialty);
+    }
+    return rv;
+  }
+
 
 }
