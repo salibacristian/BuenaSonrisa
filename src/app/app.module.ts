@@ -27,6 +27,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
@@ -49,6 +51,9 @@ import { UploadImageComponent } from './components/upload-image/upload-image.com
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { AvailabilityComponent } from './components/availability/availability.component';
+import { UsersComponent } from './components/users/users.component';
+import { UserStatusPipe } from './pipes/user-status.pipe';
+import { UserTypePipe } from './pipes/user-type.pipe';
 
 
 @NgModule({
@@ -69,8 +74,11 @@ import { AvailabilityComponent } from './components/availability/availability.co
     FilterSchedulerPipe,
     AppointmentsListComponent,
     UploadImageComponent,
-    AvailabilityComponent      
-  ],
+    AvailabilityComponent,
+    UsersComponent,
+    UserStatusPipe,
+    UserTypePipe
+    ],
   entryComponents: [DialogOverviewExampleDialog, AddSpecialtyDialog, UserSpecialtiesDialog],
   imports: [
     BrowserModule,
@@ -90,7 +98,8 @@ import { AvailabilityComponent } from './components/availability/availability.co
     ,MatButtonModule,MatProgressSpinnerModule
     ,MatInputModule,MatFormFieldModule,MatSelectModule,MatToolbarModule
     ,MatDatepickerModule, // provides moment date adapter
-    MatMomentDateModule, MatDialogModule,MatListModule,MatTableModule,MatCheckboxModule
+    MatMomentDateModule, MatDialogModule,MatListModule,MatTableModule
+    ,MatCheckboxModule, MatSlideToggleModule, MatPaginatorModule
     // AngularFontAwesomeModule,FontAwesomeModule
   ],
   providers: [ { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },

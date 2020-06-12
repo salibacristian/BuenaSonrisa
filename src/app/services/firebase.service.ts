@@ -287,5 +287,18 @@ export class FirebaseService {
     return rv;
   }
 
+  async updateUserStatus(user: User) {
+    var db = firebase.firestore();
+    var activeRef = await db.collection('users')
+      .where('id', '==', user.id)
+      .get();
+
+    activeRef.docs.forEach(function (doc) {
+      db.collection("users").doc(doc.id)
+        .update({ deleted: user.deleted, disabled: user.disabled });
+    });
+
+  }
+
 
 }

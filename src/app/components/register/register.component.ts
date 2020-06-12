@@ -11,7 +11,7 @@ export class RegisterComponent implements OnInit {
  
   constructor( private firebaseService: FirebaseService) {
    }
-  
+  returnToRoute = '/login';
   user: User = new User(1,'','',new Date(),3, '','',[],'');
   password: string = '';
 
@@ -37,6 +37,7 @@ export class RegisterComponent implements OnInit {
       this.userTypes = [
         {value: "Administrador", key: 1},
       ];
+      this.returnToRoute = '/users'
     }
   }
 
