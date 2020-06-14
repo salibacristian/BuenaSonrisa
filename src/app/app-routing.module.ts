@@ -6,6 +6,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { AvailabilityComponent } from './components/availability/availability.component';
+import { UsersComponent } from './components/users/users.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
  {path: 'login' , component: LoginComponent},
  {path: 'newAppointment' , component: AppointmentComponent, canActivate: [AuthGuard]},
  {path: 'availability' , component: AvailabilityComponent, canActivate: [AuthGuard]},
+ {path: 'users' , component: UsersComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

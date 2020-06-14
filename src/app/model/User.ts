@@ -9,6 +9,8 @@ export class User{
     imageUrl2: string;
     specialties: Array<string>;
     availability: string;
+    deleted: boolean;
+    disabled: boolean;
 
     constructor(type: UserType, email: string, name: string
         , birthDate: Date, gender: Gender, imageUrl: string
@@ -22,6 +24,8 @@ export class User{
         this.imageUrl2 = imageUrl2;
         this.specialties = specialties;
         this.availability = availability;
+        this.deleted = false;
+        this.disabled = type == UserType.Profesional;
     }   
 
 }

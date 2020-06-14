@@ -85,8 +85,26 @@ export class FirebaseService {
       });
   }
 
-  login(user, pass) {
+  async login(user, pass) {
     var router = this.router;
+    var userDb = await this.getUserByEmail(user);
+    if(userDb)
+    {
+      if(userDb.deleted){
+        alert("Tu cuenta se encuentra deshabilitada");
+        return;
+      }
+      else if(userDb.disabled){
+        alert("Tu cuenta aun no ha sido verificada por un administrador");
+        return;
+      }
+    } 
+    else{
+      alert("No se encontro al usuario " + user);
+      return;
+    }
+
+
     firebase.auth().signInWithEmailAndPassword(user, pass)
       .then(async function (res) {
         console.log(res);
@@ -200,6 +218,14 @@ export class FirebaseService {
     return usrsRef.docs.shift().data() as User;
   }
 
+  async getUserByEmail(email: string) {
+    let usrsRef = await db.collection('users')
+      .where("email", "==", email)
+      .get();
+    return usrsRef.docs.shift().data() as User;
+  }
+
+
   async getAppointmentsByDate(date: Date, specialistId: string) {
 
     let ref = await db.collection('appointments').get();
@@ -285,6 +311,19 @@ export class FirebaseService {
       rv.push(u.data() as Specialty);
     }
     return rv;
+  }
+
+  async updateUserStatus(user: User) {
+    var db = firebase.firestore();
+    var activeRef = await db.collection('users')
+      .where('id', '==', user.id)
+      .get();
+
+    activeRef.docs.forEach(function (doc) {
+      db.collection("users").doc(doc.id)
+        .update({ deleted: user.deleted, disabled: user.disabled });
+    });
+
   }
 
 
