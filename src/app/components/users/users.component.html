@@ -42,7 +42,11 @@
       <ng-container matColumnDef="Profesional Verificado">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Profesional Verificado </th>
         <td mat-cell *matCellDef="let row"> 
-          <mat-icon *ngIf="row.type == 3" aria-hidden="false" (click)="onchangeSpecialistStatus(row)">
+          <mat-icon *ngIf="row.type == 3" 
+          style="cursor:pointer;" 
+          aria-hidden="false" 
+          matTooltip="{{row.disabled? 'verificacion pendiente' : 'verificado'}}"
+          (click)="onchangeSpecialistStatus(row)">
             {{row.disabled | userStatus : 'disabled'}}
           </mat-icon>
          </td>

@@ -29,6 +29,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
@@ -54,6 +55,7 @@ import { AvailabilityComponent } from './components/availability/availability.co
 import { UsersComponent } from './components/users/users.component';
 import { UserStatusPipe } from './pipes/user-status.pipe';
 import { UserTypePipe } from './pipes/user-type.pipe';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -77,9 +79,10 @@ import { UserTypePipe } from './pipes/user-type.pipe';
     AvailabilityComponent,
     UsersComponent,
     UserStatusPipe,
-    UserTypePipe
+    UserTypePipe,
+    ConfirmDialogComponent
     ],
-  entryComponents: [DialogOverviewExampleDialog, AddSpecialtyDialog, UserSpecialtiesDialog],
+  entryComponents: [DialogOverviewExampleDialog, AddSpecialtyDialog, UserSpecialtiesDialog, ConfirmDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -99,7 +102,7 @@ import { UserTypePipe } from './pipes/user-type.pipe';
     ,MatInputModule,MatFormFieldModule,MatSelectModule,MatToolbarModule
     ,MatDatepickerModule, // provides moment date adapter
     MatMomentDateModule, MatDialogModule,MatListModule,MatTableModule
-    ,MatCheckboxModule, MatSlideToggleModule, MatPaginatorModule
+    ,MatCheckboxModule, MatSlideToggleModule, MatPaginatorModule, MatTooltipModule
     // AngularFontAwesomeModule,FontAwesomeModule
   ],
   providers: [ { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
