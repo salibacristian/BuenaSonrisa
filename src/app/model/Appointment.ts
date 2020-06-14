@@ -1,30 +1,24 @@
+import {User} from './User'
+
 export class Appointment{
-    id: string;
-    specialistId: string;
-    specialistName: string;
-    clientId: string;
-    clientName: string;
-    createdUserId: string;
+    specialist: User;
+    client: User;
     status: AppointmentStatus;
     date: Date;
-    roomCode: string;
 
-
-
-    constructor(specialistId: string, clientId: string, createdUserId: string, status: AppointmentStatus, date: Date, roomCode: string){
-        this.specialistId = specialistId;
-        this.clientId = clientId;
-        this.createdUserId = createdUserId;
+    constructor(specialist: User, client: User, status: AppointmentStatus, date: Date){
+        this.specialist = specialist;
+        this.client = client;
         this.status = status;
         this.date = date;
-        this.roomCode = roomCode;
     }   
 
 }
 
-enum AppointmentStatus {
-    Asignado = 1,
-    Cancelado = 2,
+export enum AppointmentStatus {
+    Pendiente = 1,
+    Aceptado = 2,
     Finalizado = 3,
-    Perdido = 4
+    Cancelado = 4,
+    Perdido = 5
 }
