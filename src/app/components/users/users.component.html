@@ -35,7 +35,16 @@
             [checked]="!row.deleted"         
             [color]="accent"
             (change)="onchangeUserStatus(row)"
-            [disabled]="row.type == 1">{{row.deleted | userStatus}}</mat-slide-toggle>
+            [disabled]="row.type == 1">{{row.deleted | userStatus : 'deleted'}}</mat-slide-toggle>
+         </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Profesional Verificado">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Profesional Verificado </th>
+        <td mat-cell *matCellDef="let row"> 
+          <mat-icon *ngIf="row.type == 3" aria-hidden="false" (click)="onchangeSpecialistStatus(row)">
+            {{row.disabled | userStatus : 'disabled'}}
+          </mat-icon>
          </td>
       </ng-container>
   

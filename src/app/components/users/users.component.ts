@@ -12,7 +12,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 })
 export class UsersComponent implements OnInit {
 
-  displayedColumns: string[] = ['Nombre', 'Email', 'Rol', 'Estado'];
+  displayedColumns: string[] = ['Nombre', 'Email', 'Rol', 'Estado', "Profesional Verificado"];
   dataSource: MatTableDataSource<User>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -43,5 +43,12 @@ export class UsersComponent implements OnInit {
      user.deleted = !user.deleted;
      this.firebaseService.updateUserStatus(user);
   }
+
+  onchangeSpecialistStatus(user: User){
+    user.disabled = !user.disabled;
+    this.firebaseService.updateUserStatus(user);
+
+ }
+
 
 }
