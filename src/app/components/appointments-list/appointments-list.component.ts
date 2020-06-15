@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { User } from 'src/app/model/User';
+import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { AppointmentComponent } from '../appointment/appointment.component';
+import { Appointment } from 'src/app/model/Appointment';
 
 @Component({
   selector: 'app-appointments-list',
@@ -7,25 +9,13 @@ import { User } from 'src/app/model/User';
   styleUrls: ['./appointments-list.component.css']
 })
 export class AppointmentsListComponent implements OnInit {
-  @Input() appointments;
-  @Input() currentUser: User;
-  constructor() { }
 
-  ngOnInit() {
-  }
+  appointments: Array<Appointment>;
+  constructor(private firebaseService: FirebaseService) { }
 
-  displayedColumns: string[] = ['date', 'specialistName', 'clientName'];
-  dataSource = this.appointments;
-
-  getDisplayedColumns(): string[] {
-    if(!this.currentUser)
-      return ['date', 'specialistName', 'clientName'];
-    switch (this.currentUser.type) {
-      case 2: return ['date', 'specialistName'];
-      case 3: return ['date', 'clientName'];
-      default: return ['date', 'specialistName', 'clientName'];
-    }
-
+  async ngOnInit() {
+    this.appointments = await this.firebaseService.getAppointments();
+    console.log(this.appointments);
   }
 
 }

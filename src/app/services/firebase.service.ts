@@ -17,6 +17,7 @@ import "firebase/firestore";
 import { JwtHelper } from "angular2-jwt";
 import { Specialty } from '../model/Specialty';
 import { of } from 'rxjs';
+import { AppointmentComponent } from '../components/appointment/appointment.component';
 
 @Injectable({
   providedIn: 'root'
@@ -270,6 +271,42 @@ export class FirebaseService {
     });
 
   }
+
+  async getAppointments(){
+    let appointmentRef = await db.collection('appointments').get();
+    var rv = [];
+    for (let doc of appointmentRef.docs) {
+      let clientRef = await doc.data().client.get();
+      let client = clientRef.data() as User;
+      let specialistRef = await doc.data().specialist.get();
+      let specialist = specialistRef.data() as User;
+      let appointment = doc.data() as Appointment;
+      appointment.client = client;
+      appointment.specialist = specialist;
+      rv.push(appointment);
+    }
+    return rv;
+  }
+
+  // db.collection('products').get()
+  //   .then(res => {
+  //     vm.mainListItems = [];
+  //     res.forEach(doc => {
+  //       let newItem = doc.data();
+  //       newItem.id = doc.id;
+  //       if (newItem.userRef) {
+  //         newItem.userRef.get()
+  //         .then(res => { 
+  //           newItem.userData = res.data() 
+  //           vm.mainListItems.push(newItem);
+  //         })
+  //         .catch(err => console.error(err));
+  //       } else {
+  //         vm.mainListItems.push(newItem);  
+  //       }
+
+  //     });
+  //   })
 
   async addSpecialty(name: string) {
     var user = firebase.auth().currentUser;
