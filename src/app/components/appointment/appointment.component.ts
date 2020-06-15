@@ -17,6 +17,7 @@ export class AppointmentComponent implements OnInit {
   specialists = [];
   specialties = [];
   selectedSpecialist = null;
+  selectedSpecialty = null;
   selectedTime: string = null;
   async ngOnInit() {
     this.specialists = await this.firebaseService.getUsersByType(UserType.Profesional);

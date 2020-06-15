@@ -56,6 +56,7 @@ import { UsersComponent } from './components/users/users.component';
 import { UserStatusPipe } from './pipes/user-status.pipe';
 import { UserTypePipe } from './pipes/user-type.pipe';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { FilterBySpecialtyPipe } from './pipes/filter-by-specialty.pipe';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     UsersComponent,
     UserStatusPipe,
     UserTypePipe,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    FilterBySpecialtyPipe
     ],
   entryComponents: [DialogOverviewExampleDialog, AddSpecialtyDialog, UserSpecialtiesDialog, ConfirmDialogComponent],
   imports: [

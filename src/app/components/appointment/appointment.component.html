@@ -14,7 +14,7 @@
   <mat-form-field>
     <mat-label>Especialista</mat-label>
     <mat-select [(ngModel)]="selectedSpecialist" name="specialist">
-      <mat-option *ngFor="let specialist of specialists" [value]="specialist">
+      <mat-option *ngFor="let specialist of specialists | filterBySpecialty : selectedSpecialty" [value]="specialist">
         {{specialist.name}}
       </mat-option>
     </mat-select>
