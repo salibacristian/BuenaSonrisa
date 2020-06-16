@@ -14,13 +14,21 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 export class AppointmentsListComponent implements OnInit {
 
   appointments: Array<Appointment>;
-  displayedColumns: string[] = ['Fecha', 'Paciente', 'Profesional', 'Estado'];
+  displayedColumns: string[] = [];
   currentUser: User;
 
   constructor(private firebaseService: FirebaseService, public dialog: MatDialog) { }
 
   async ngOnInit() {
     this.currentUser = await this.firebaseService.getAuthCurrentUser();
+    // this.displayedColumns = ['Fecha', 'Paciente', 'Profesional', 'Estado'];
+    this.displayedColumns = ['Fecha', 'Paciente', 'Profesional', 'Estado'];
+
+    if(this.currentUser.type == UserType.Paciente)
+      this.displayedColumns.splice(1,1);
+      if(this.currentUser.type == UserType.Profesional)
+      this.displayedColumns.splice(2,1);
+
     this.appointments = await this.firebaseService.getAppointments();
     console.log(this.appointments);
   }
