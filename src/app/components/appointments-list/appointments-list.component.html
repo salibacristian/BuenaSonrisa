@@ -1,1 +1,34 @@
-
+<mat-table [dataSource]="appointments" class="mat-elevation-z8">
+    <ng-container matColumnDef="Fecha">
+      <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+      <mat-cell *matCellDef="let appointment"> {{appointment.date | date}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="Paciente">
+      <mat-header-cell *matHeaderCellDef> Paciente </mat-header-cell>
+      <mat-cell *matCellDef="let appointment"> {{appointment.client.name}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="Profesional">
+      <mat-header-cell *matHeaderCellDef> Profesional </mat-header-cell>
+      <mat-cell *matCellDef="let appointment"> {{appointment.specialist.name}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="Estado">
+      <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
+      <mat-cell *matCellDef="let appointment"> 
+          {{appointment.status | appointmentStatus }} 
+          <mat-icon *ngIf="canCancelAppointment(appointment)" style="cursor:pointer;" aria-hidden="false" matTooltip="Cancelar Turno" color="accent" 
+          (click)="onchangeAppointmentStatus(appointment, 4)">
+            clear
+          </mat-icon>
+          <mat-icon  *ngIf="canAcceptAppointment(appointment)" style="cursor:pointer;" aria-hidden="false" matTooltip="Aceptar Turno" color="primary"
+           (click)="onchangeAppointmentStatus(appointment, 2)">
+           check
+          </mat-icon>
+        </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>

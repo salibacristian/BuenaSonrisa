@@ -230,25 +230,6 @@ export class FirebaseService {
   //   return appointments;
   // }
 
-  // async getAppointments(userId: string, userType: number) {
-  //   var rv = null;
-  //   var field = null;
-
-  //   switch (userType as UserType) {
-  //     case UserType.Paciente:
-  //       field = "clientId";
-  //       break;
-  //     case UserType.Profesional:
-  //       field = "specialistId";
-  //       break;
-  //   }
-  //   if (field)
-  //     rv = await db.collection('appointments').where(field, "==", userId).get();
-  //   else rv = await db.collection('appointments').get();
-
-  //   return rv;
-  // }
-
   async addAppointment(appointment: Appointment) {
     var user = firebase.auth().currentUser;
     var db = firebase.firestore();
@@ -281,32 +262,13 @@ export class FirebaseService {
       let specialistRef = await doc.data().specialist.get();
       let specialist = specialistRef.data() as User;
       let appointment = doc.data() as Appointment;
+      appointment.docId = doc.id;
       appointment.client = client;
       appointment.specialist = specialist;
       rv.push(appointment);
     }
     return rv;
   }
-
-  // db.collection('products').get()
-  //   .then(res => {
-  //     vm.mainListItems = [];
-  //     res.forEach(doc => {
-  //       let newItem = doc.data();
-  //       newItem.id = doc.id;
-  //       if (newItem.userRef) {
-  //         newItem.userRef.get()
-  //         .then(res => { 
-  //           newItem.userData = res.data() 
-  //           vm.mainListItems.push(newItem);
-  //         })
-  //         .catch(err => console.error(err));
-  //       } else {
-  //         vm.mainListItems.push(newItem);  
-  //       }
-
-  //     });
-  //   })
 
   async addSpecialty(name: string) {
     var user = firebase.auth().currentUser;
@@ -353,5 +315,12 @@ export class FirebaseService {
 
   }
 
+  async updateAppointmentStatus(appointment: Appointment) {
+    var db = firebase.firestore();
+    var activeRef = await db.collection('appointments').doc(appointment.docId);
+     
+    activeRef.update({ status: appointment.status });
+
+  }
 
 }

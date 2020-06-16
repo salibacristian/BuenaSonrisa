@@ -1,6 +1,7 @@
 import {User} from './User'
 
 export class Appointment{
+    docId: string;
     specialist: User;
     client: User;
     status: AppointmentStatus;
