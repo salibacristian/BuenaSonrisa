@@ -1,7 +1,7 @@
 <mat-toolbar>
     <div style="display: inline;margin: 5px;">{{currentUser ? currentUser.name : ''}}</div>
     <div style="display: inline;margin: 5px;">
-      <img *ngIf="currentUser" [src]="currentUser.imageUrl"  width= "60px">
+      <img *ngIf="currentUser" [src]="currentUser.imageUrl"  width= "50px" height="50px">
     </div>
     <mat-spinner diameter="50" *ngIf="!currentUser"></mat-spinner>
     <!-- This fills the remaining space of the current row -->
