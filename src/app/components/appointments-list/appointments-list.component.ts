@@ -31,6 +31,16 @@ export class AppointmentsListComponent implements OnInit {
 
     this.appointments = await this.firebaseService.getAppointments();
     console.log(this.appointments);
+    this.filterAppointments();
+  }
+
+  filterAppointments(){
+    var user = this.currentUser;
+    this.appointments = this.appointments.filter(function(appointment) {
+      return user.type == UserType.Administrador
+        || appointment.specialist.id == user.id 
+        || appointment.client.id == user.id;
+    });
   }
 
   canCancelAppointment(a: Appointment){
