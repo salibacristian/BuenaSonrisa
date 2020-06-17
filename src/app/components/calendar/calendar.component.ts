@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { FirebaseService } from "../../services/firebase.service";
 import { Appointment } from 'src/app/model/Appointment';
 import { Time } from '@angular/common';
+import { User } from 'src/app/model/User';
 
 export interface DialogData {
   hour: number;
@@ -15,7 +16,7 @@ export interface DialogData {
   styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent implements OnInit {
-  @Input() specialistId;
+  @Input() specialist: User;
   @Output() selectDate: EventEmitter<any>= new EventEmitter<any>();
   minDate = new Date();
   maxDate = new Date(new Date().setDate(new Date().getDate() + 15));
@@ -28,14 +29,33 @@ export class CalendarComponent implements OnInit {
   appointments = Array<Appointment>();
 
   public async onSelectDate(event) {
-    // this.appointments = await this.firebaseService.getAppointmentsByDate(this.selectedDate, this.specialistId);
     this.openDialog();
   }
 
   myFilter = (d: Date): boolean => {
     var date = new Date(d);
+    //atiende ese dia el profesional elegido?
+
+    //turnos del profesional elegido
+    // var specialistId = this.specialist.id;
+    // var appointmentsForDate = this.appointments.filter(function(x) {
+    //   return x.status < 3 && x.specialist.id == specialistId;
+    // });
+
+    //filtro el schedule por la disponibildad del profesional
+
+    //hay algun horario de los que quedo que no se iguale con los turnos existentes del profesional ese dia
+    // this.schedule.some(function(x) {
+    //   var datetime = 
+    //   date.setHours(x.hour);
+    //   date.setMinutes(x.hour);
+    //   datetime
+    // })
+
     const day = date.getDay();
     return  day !== 6;
+
+
   };
   constructor(private firebaseService: FirebaseService, public dialog: MatDialog) { }
 
@@ -66,12 +86,15 @@ export class CalendarComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.hours.forEach(h => {
       this.minutes.forEach(m => {
         this.schedule.push({ hour: h, min: m });
       });
     });
+
+    this.appointments = await this.firebaseService.getAppointments();
+
   }
 
 }

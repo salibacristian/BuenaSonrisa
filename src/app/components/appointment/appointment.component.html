@@ -20,7 +20,7 @@
     </mat-select>
   </mat-form-field>
 
-  <app-calendar *ngIf="selectedSpecialist" [specialistId]="selectedSpecialist.id" (selectDate)=onSelectedDate($event)></app-calendar> 
+  <app-calendar *ngIf="selectedSpecialist" [specialist]="selectedSpecialist" (selectDate)=onSelectedDate($event)></app-calendar> 
   <mat-form-field  *ngIf="selectedTime">
     <input matInput type="time" [(ngModel)]="selectedTime" disabled>
   </mat-form-field>
