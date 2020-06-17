@@ -46,7 +46,7 @@ export class FirebaseService {
       return false;
     let decodedToken = this.jwtHelper.decodeToken(token);
     let sessionUserName = sessionStorage.getItem('userName');
-    return token && !this.jwtHelper.isTokenExpired(token) && decodedToken.email == sessionUserName;
+    return token && !this.jwtHelper.isTokenExpired(token) && decodedToken.email.toLowerCase() == sessionUserName.toLowerCase();
 
   }
 
@@ -70,7 +70,7 @@ export class FirebaseService {
       .then(function (res) {
         user.id = res.user.uid;
         addUser(user);
-        sessionStorage.setItem('userName', user.email);
+        sessionStorage.setItem('userName', user.email.toLowerCase());
         res.user.getIdToken()
           .then(function (token) {
             localStorage.setItem('token', token);
@@ -142,7 +142,7 @@ export class FirebaseService {
   addUser(user: User) {
     var db = firebase.firestore();
     db.collection("users").add({
-      email: user.email,
+      email: user.email.toLowerCase(),
       name: user.name,
       birthDate: user.birthDate,
       gender: user.gender,
@@ -150,6 +150,8 @@ export class FirebaseService {
       imageUrl: user.imageUrl,
       imageUrl2: user.imageUrl2,
       specialties: user.specialties,
+      deleted: user.deleted,
+      disabled: user.disabled,
       id: user.id
     })
       .then(function (docRef) {
@@ -211,7 +213,7 @@ export class FirebaseService {
 
   async getUserByEmail(email: string) {
     let usrsRef = await db.collection('users')
-      .where("email", "==", email)
+      .where("email","==", email.toLowerCase())
       .get();
     return usrsRef.docs.shift().data() as User;
   }
