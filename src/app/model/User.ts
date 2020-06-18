@@ -8,13 +8,13 @@ export class User{
     imageUrl: string;
     imageUrl2: string;
     specialties: Array<string>;
-    availability: string;
+    availability: Array<Availability>;
     deleted: boolean;
     disabled: boolean;
 
     constructor(type: UserType, email: string, name: string
         , birthDate: Date, gender: Gender, imageUrl: string
-        , imageUrl2: string, specialties: Array<string>, availability: string){
+        , imageUrl2: string, specialties: Array<string>, availability: Array<Availability>){
         this.email = email;
         this.name = name;
         this.birthDate = birthDate;

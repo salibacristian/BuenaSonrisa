@@ -173,7 +173,7 @@ export class FirebaseService {
     activeRef.docs.forEach(function (doc) {
       let availabilityJson = JSON.stringify(availability);
       db.collection("users").doc(doc.id)
-        .update({ availability: availabilityJson });
+        .update({ availability: availability });
     });
   }
 
