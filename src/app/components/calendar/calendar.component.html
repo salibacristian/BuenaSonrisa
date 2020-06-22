@@ -1,6 +1,7 @@
-<mat-form-field class="example-full-width">
+<mat-form-field  *ngIf="!loading"  class="example-full-width">
     <input matInput [matDatepickerFilter]="myFilter" 
     [min]="minDate" 
+    [max]="maxDate" 
     [matDatepicker]="picker" 
     placeholder="Eliga el día" 
     [(ngModel)] = "selectedDate" 
@@ -8,3 +9,7 @@
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
+  <mat-spinner diameter="50" *ngIf="loading"></mat-spinner>
+
+
+

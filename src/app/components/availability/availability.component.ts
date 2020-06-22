@@ -21,10 +21,11 @@ export class AvailabilityComponent implements OnInit {
   async ngOnInit() {
 
     this.currentUser = await this.firebaseService.getAuthCurrentUser();
-    if (this.currentUser.availability != "") {
-      var currentAvailability: Availability[] = JSON.parse(this.currentUser.availability);
+    if (this.currentUser.availability && this.currentUser.availability.length) {
+      // var currentAvailability: Availability[] = JSON.parse(this.currentUser.availability);
 
-      this.dataSource = currentAvailability;
+      this.dataSource = this.currentUser.availability;
+      // this.dataSource = currentAvailability;
     }
     else {
       //de lun a vie de 8hs a 19hs

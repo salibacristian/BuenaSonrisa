@@ -16,6 +16,8 @@ import "firebase/firestore";
 
 import { JwtHelper } from "angular2-jwt";
 import { Specialty } from '../model/Specialty';
+import { of } from 'rxjs';
+import { AppointmentComponent } from '../components/appointment/appointment.component';
 
 @Injectable({
   providedIn: 'root'
@@ -40,9 +42,11 @@ export class FirebaseService {
 
   isAuthenticated() {
     let token = localStorage.getItem("token");
+    if(!token)
+      return false;
     let decodedToken = this.jwtHelper.decodeToken(token);
     let sessionUserName = sessionStorage.getItem('userName');
-    return token && !this.jwtHelper.isTokenExpired(token) && decodedToken.email == sessionUserName;
+    return token && !this.jwtHelper.isTokenExpired(token) && decodedToken.email.toLowerCase() == sessionUserName.toLowerCase();
 
   }
 
@@ -66,7 +70,7 @@ export class FirebaseService {
       .then(function (res) {
         user.id = res.user.uid;
         addUser(user);
-        sessionStorage.setItem('userName', user.email);
+        sessionStorage.setItem('userName', user.email.toLowerCase());
         res.user.getIdToken()
           .then(function (token) {
             localStorage.setItem('token', token);
@@ -88,18 +92,17 @@ export class FirebaseService {
   async login(user, pass) {
     var router = this.router;
     var userDb = await this.getUserByEmail(user);
-    if(userDb)
-    {
-      if(userDb.deleted){
+    if (userDb) {
+      if (userDb.deleted) {
         alert("Tu cuenta se encuentra deshabilitada");
         return;
       }
-      else if(userDb.disabled){
+      else if (userDb.disabled) {
         alert("Tu cuenta aun no ha sido verificada por un administrador");
         return;
       }
-    } 
-    else{
+    }
+    else {
       alert("No se encontro al usuario " + user);
       return;
     }
@@ -139,7 +142,7 @@ export class FirebaseService {
   addUser(user: User) {
     var db = firebase.firestore();
     db.collection("users").add({
-      email: user.email,
+      email: user.email.toLowerCase(),
       name: user.name,
       birthDate: user.birthDate,
       gender: user.gender,
@@ -147,6 +150,8 @@ export class FirebaseService {
       imageUrl: user.imageUrl,
       imageUrl2: user.imageUrl2,
       specialties: user.specialties,
+      deleted: user.deleted,
+      disabled: user.disabled,
       id: user.id
     })
       .then(function (docRef) {
@@ -168,38 +173,9 @@ export class FirebaseService {
     activeRef.docs.forEach(function (doc) {
       let availabilityJson = JSON.stringify(availability);
       db.collection("users").doc(doc.id)
-        .update({ availability: availabilityJson });
+        .update({ availability: availability });
     });
   }
-
-  // async saveResult(juego, gano) {   
-  //     await this.getCurrentUser();
-  //     var db = firebase.firestore();
-  //     let resultados = db.collection('resultados')
-  //     let activeRef = await resultados
-  //       .where('usuarioId', '==', this.user.uid)
-  //       .where('juego', '==', juego)
-  //       .get();
-
-  //     if (activeRef.empty) {
-  //       //add
-  //       db.collection("resultados").add({
-  //         usuarioId: this.user.uid,
-  //         juego: juego,
-  //         victorias: gano ? 1 : 0,
-  //         derrotas: gano ? 0 : 1
-  //       });
-  //     }
-  //     else {
-  //       //update
-  //       activeRef.docs.forEach(function (doc) {
-  //         let victorias = doc.data().victorias + (gano ? 1 : 0);
-  //         let derrotas = doc.data().derrotas + (gano ? 0 : 1);
-  //         db.collection("resultados").doc(doc.id)
-  //           .update({ victorias: victorias, derrotas: derrotas });
-  //       });
-  //     }
-  // }
 
   async getUsers() {
     // return await db.collection("usuarios").get();
@@ -208,6 +184,23 @@ export class FirebaseService {
     for (let u of usrsRef.docs) {
       rv.push(u.data() as User);
     }
+    return rv;
+  }
+
+  async getUsersByType(userType: UserType) {
+    // return await db.collection("usuarios").get();
+    let usrsRef = await db.collection('users')
+      .where("deleted", "==", false)
+      .where("disabled", "==", false)
+      .where("type", "==", userType)
+      .get();
+
+    var rv = [];
+
+    for (let u of usrsRef.docs) {
+      rv.push(u.data() as User);
+    }
+
     return rv;
   }
 
@@ -220,65 +213,63 @@ export class FirebaseService {
 
   async getUserByEmail(email: string) {
     let usrsRef = await db.collection('users')
-      .where("email", "==", email)
+      .where("email","==", email.toLowerCase())
       .get();
     return usrsRef.docs.shift().data() as User;
   }
 
 
-  async getAppointmentsByDate(date: Date, specialistId: string) {
+  // async getAppointmentsByDate(date: Date, specialistId: string) {
 
-    let ref = await db.collection('appointments').get();
-    let appointments: Array<Appointment> = [];
-    for (let doc of ref.docs) {
-      console.log(doc.data());
-      var appointment: Appointment = doc.data() as Appointment;
-      if (appointment.date == date && appointment.specialistId == specialistId && appointment.status == 1)
-        appointments.push(appointment);
-    }
-    return appointments;
-  }
+  //   let ref = await db.collection('appointments').get();
+  //   let appointments: Array<Appointment> = [];
+  //   for (let doc of ref.docs) {
+  //     console.log(doc.data());
+  //     var appointment: Appointment = doc.data() as Appointment;
+  //     if (appointment.date == date && appointment.specialistId == specialistId && appointment.status == 1)
+  //       appointments.push(appointment);
+  //   }
+  //   return appointments;
+  // }
 
-  async getAppointments(userId: string, userType: number) {
-    var rv = null;
-    var field = null;
-
-    switch (userType as UserType) {
-      case UserType.Paciente:
-        field = "clientId";
-        break;
-      case UserType.Profesional:
-        field = "specialistId";
-        break;
-    }
-    if (field)
-      rv = await db.collection('appointments').where(field, "==", userId).get();
-    else rv = await db.collection('appointments').get();
-
-    // for (let index = 0; index < rv.docs.length; index++) {
-    //   const doc = rv.docs[index];
-    //   var appointment = doc.data() as Appointment;
-    //   var specialist = await this.getUser(appointment.specialistId);
-    //    appointment.specialistName = specialist.name;
-    //    var client = await this.getUser(appointment.clientId);
-    //    appointment.clientName = client.name;
-    // }
-
-
-    return rv;
-  }
-
-  async addAppointments(appointments: Array<Appointment>) {
+  async addAppointment(appointment: Appointment) {
     var user = firebase.auth().currentUser;
     var db = firebase.firestore();
-    appointments.forEach(appointment => {
-      db.collection("appointments").add({
-        specialistId: appointment.specialistId,
-        clientId: user.uid,
-        status: appointment.status,
-        date: appointment.date.toLocaleString()
-      });
+    var specialistDb = await db.collection('users')
+    .where("id", "==", appointment.specialist.id)
+    .get();
+      
+    var clientDb = await db.collection('users')
+    .where("id", "==", user.uid)
+    .get();
+
+    var specialistRef = specialistDb.docs.shift().ref;
+    var clientRef = clientDb.docs.shift().ref;
+
+    db.collection("appointments").add({
+      specialist: specialistRef,
+      client: clientRef,
+      status: appointment.status,
+      date: appointment.date
     });
+
+  }
+
+  async getAppointments(){
+    let appointmentRef = await db.collection('appointments').get();
+    var rv = [];
+    for (let doc of appointmentRef.docs) {
+      let clientRef = await doc.data().client.get();
+      let client = clientRef.data() as User;
+      let specialistRef = await doc.data().specialist.get();
+      let specialist = specialistRef.data() as User;
+      let appointment = doc.data() as Appointment;
+      appointment.docId = doc.id;
+      appointment.client = client;
+      appointment.specialist = specialist;
+      rv.push(appointment);
+    }
+    return rv;
   }
 
   async addSpecialty(name: string) {
@@ -326,5 +317,12 @@ export class FirebaseService {
 
   }
 
+  async updateAppointmentStatus(appointment: Appointment) {
+    var db = firebase.firestore();
+    var activeRef = await db.collection('appointments').doc(appointment.docId);
+     
+    activeRef.update({ status: appointment.status });
+
+  }
 
 }

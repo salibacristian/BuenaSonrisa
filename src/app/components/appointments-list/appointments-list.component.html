@@ -1,17 +1,34 @@
-<table mat-table [dataSource]="appointments" class="mat-elevation-z8">
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef> Fecha </th>
-      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+<mat-table [dataSource]="appointments" class="mat-elevation-z8">
+    <ng-container matColumnDef="Fecha">
+      <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+      <mat-cell *matCellDef="let appointment"> {{appointment.date | date}} </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="specialistName">
-      <th mat-header-cell *matHeaderCellDef> Especialista </th>
-      <td mat-cell *matCellDef="let element"> {{element.specialistName}} </td>
-    </ng-container>
-    <ng-container matColumnDef="clientName">
-      <th mat-header-cell *matHeaderCellDef> Paciente </th>
-      <td mat-cell *matCellDef="let element"> {{element.clientName}} </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="getDisplayedColumns();"></tr>
-    <tr mat-row *matRowDef="let row; columns: getDisplayedColumns();"></tr>
-  </table>
   
+    <ng-container matColumnDef="Paciente">
+      <mat-header-cell *matHeaderCellDef> Paciente </mat-header-cell>
+      <mat-cell *matCellDef="let appointment"> {{appointment.client.name}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="Profesional">
+      <mat-header-cell *matHeaderCellDef> Profesional </mat-header-cell>
+      <mat-cell *matCellDef="let appointment"> {{appointment.specialist.name}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="Estado">
+      <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
+      <mat-cell *matCellDef="let appointment"> 
+          {{appointment.status | appointmentStatus }} 
+          <mat-icon *ngIf="canCancelAppointment(appointment)" style="cursor:pointer;" aria-hidden="false" matTooltip="Cancelar Turno" color="accent" 
+          (click)="onchangeAppointmentStatus(appointment, 4)">
+            clear
+          </mat-icon>
+          <mat-icon  *ngIf="canAcceptAppointment(appointment)" style="cursor:pointer;" aria-hidden="false" matTooltip="Aceptar Turno" color="primary"
+           (click)="onchangeAppointmentStatus(appointment, 2)">
+           check
+          </mat-icon>
+        </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>

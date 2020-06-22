@@ -1,15 +1,12 @@
 <h1 mat-dialog-title>{{data.title}}</h1>
 <div mat-dialog-content>
 
-  <mat-selection-list #schedule> 
-    <mat-list-option *ngFor="let s of data.schedule | filterScheduler: data.appointments" [value]="s">
+  <mat-selection-list #schedule [(ngModel)]="selectedOptions" (ngModelChange)="onNgModelChange($event)"> 
+    <mat-list-option *ngFor="let s of data.schedule" [value]="s">
       {{s.hour}}:{{s.min | minute}}
     </mat-list-option>
   </mat-selection-list>
   
-  <p>
-    Options selected: {{schedule.selectedOptions.selected.length}}
-  </p>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancelar</button>
