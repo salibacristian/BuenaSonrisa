@@ -88,7 +88,8 @@ export class CalendarComponent implements OnInit {
       datetime.setHours(x.hour);
       datetime.setMinutes(x.min);
       return !specialistAppointments.some(function(y){
-       return y.date == datetime;
+        var currentAppointmentDate = new Date(y.date.seconds * 1000);
+        return currentAppointmentDate.getTime() == datetime.getTime();
       });
     });
    
@@ -97,12 +98,56 @@ export class CalendarComponent implements OnInit {
 
   constructor(private firebaseService: FirebaseService, public dialog: MatDialog) { }
 
+  filterSchedule(d: Date){
+    var date = new Date(d);
+    const day = date.getDay();
+    var spacialistAvailability = this.specialist.availability;
+    var filterSchedule = this.schedule.filter(function(x){
+      return spacialistAvailability.some(function(y){
+         switch (day) {
+           case 1: 
+            return y.lunes.hora == x.hour && y.lunes.seleccionado;
+           case 2:
+             return y.martes.hora == x.hour && y.martes.seleccionado;
+           case 3:
+             return y.miercoles.hora == x.hour && y.miercoles.seleccionado;
+           case 4:
+             return y.jueves.hora == x.hour && y.jueves.seleccionado;
+           case 5:
+             return y.viernes.hora == x.hour && y.viernes.seleccionado;
+           case 6:
+             return y.sabado.hora == x.hour && y.sabado.seleccionado;
+           default: return false;  
+         }
+       }); 
+     });   
+
+     var specialistId = this.specialist.id;
+    var specialistAppointments = this.appointments.filter(function(x) {
+      return x.status < 3 && x.specialist.id == specialistId;
+    });
+
+     filterSchedule = filterSchedule.filter(function(x) {
+      var datetime = date;
+      datetime.setHours(x.hour);
+      datetime.setMinutes(x.min);
+      return !specialistAppointments.some(function(y){
+        var currentAppointmentDate = new Date(y.date.seconds * 1000);
+       return currentAppointmentDate.getTime() == datetime.getTime();
+      });
+    });
+     return filterSchedule;
+  }
+
   openDialog(): void {
+    var date = new Date(this.selectedDate);
+    date.setDate(date.getDate() + 1);  //FIX
+    var filterSchedule = this.filterSchedule(date);
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '250px',
       data: {
         title: 'Seleccione el Horario',
-        schedule: this.schedule,
+        schedule: filterSchedule,
         appointments: this.appointments
       }
     });

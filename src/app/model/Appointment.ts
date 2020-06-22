@@ -5,7 +5,7 @@ export class Appointment{
     specialist: User;
     client: User;
     status: AppointmentStatus;
-    date: Date;
+    date: any;
 
     constructor(specialist: User, client: User, status: AppointmentStatus, date: Date){
         this.specialist = specialist;
