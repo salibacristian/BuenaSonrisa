@@ -27,6 +27,7 @@ export class CalendarComponent implements OnInit {
   minutes = [0, 30];
   schedule: Array<DialogData> = [];
   appointments = Array<Appointment>();
+  loading = true;
 
   public async onSelectDate(event) {
     this.openDialog();
@@ -34,42 +35,25 @@ export class CalendarComponent implements OnInit {
 
   myFilter = (d: Date): boolean => {
     var date = new Date(d);
+    date.setDate(date.getDate() + 1);  //FIX
     const day = date.getDay();
     var spacialistAvailability = this.specialist.availability;
-    //atiende ese dia el profesional elegido? 
-    var specialistAvailable = spacialistAvailability.some(function(x){
-      switch (day) {
-        case 0: 
-         return x.lunes.seleccionado;
-        case 1:
-          return x.martes.seleccionado;
-        case 2:
-          return x.miercoles.seleccionado;
-        case 3:
-          return x.jueves.seleccionado;
-        case 4:
-          return x.viernes.seleccionado;
-        case 5:
-          return x.sabado.seleccionado;
-        default: return false;  
-      }
-    });
 
     //filtro el schedule por la disponibildad del profesional
     var filterSchedule = this.schedule.filter(function(x){
      return spacialistAvailability.some(function(y){
         switch (day) {
-          case 0: 
+          case 1: 
            return y.lunes.hora == x.hour && y.lunes.seleccionado;
-          case 1:
-            return y.martes.hora == x.hour && y.martes.seleccionado;
           case 2:
-            return y.miercoles.hora == x.hour && y.miercoles.seleccionado;
+            return y.martes.hora == x.hour && y.martes.seleccionado;
           case 3:
-            return y.jueves.hora == x.hour && y.jueves.seleccionado;
+            return y.miercoles.hora == x.hour && y.miercoles.seleccionado;
           case 4:
-            return y.viernes.hora == x.hour && y.viernes.seleccionado;
+            return y.jueves.hora == x.hour && y.jueves.seleccionado;
           case 5:
+            return y.viernes.hora == x.hour && y.viernes.seleccionado;
+          case 6:
             return y.sabado.hora == x.hour && y.sabado.seleccionado;
           default: return false;  
         }
@@ -93,7 +77,7 @@ export class CalendarComponent implements OnInit {
       });
     });
    
-    return  day !== 6 && specialistAvailable && isAvailableSchedule;
+    return  day !== 0 && isAvailableSchedule;
   };
 
   constructor(private firebaseService: FirebaseService, public dialog: MatDialog) { }
@@ -170,6 +154,7 @@ export class CalendarComponent implements OnInit {
   }
 
   async ngOnInit() {
+   
     this.hours.forEach(h => {
       this.minutes.forEach(m => {
         this.schedule.push({ hour: h, min: m });
@@ -177,7 +162,7 @@ export class CalendarComponent implements OnInit {
     });
 
     this.appointments = await this.firebaseService.getAppointments();
-
+    this.loading = false;
   }
 
 }
