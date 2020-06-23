@@ -11,9 +11,9 @@ import { UsersComponent } from './components/users/users.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  {path: 'home' , component: HomeComponent, canActivate: [AuthGuard]},
- {path: 'register' , component: RegisterComponent},
- {path: 'login' , component: LoginComponent},
+  {path: 'home' , component: HomeComponent, canActivate: [AuthGuard], data: {animation: 'Home'}},
+ {path: 'register' , component: RegisterComponent, data: {animation: 'Register'}},
+ {path: 'login' , component: LoginComponent, data: {animation: 'Login'}},
  {path: 'newAppointment' , component: AppointmentComponent, canActivate: [AuthGuard]},
  {path: 'availability' , component: AvailabilityComponent, canActivate: [AuthGuard]},
  {path: 'users' , component: UsersComponent, canActivate: [AuthGuard]}
