@@ -60,6 +60,8 @@ import { FilterBySpecialtyPipe } from './pipes/filter-by-specialty.pipe';
 import { DatePipe } from './pipes/date.pipe';
 import { AppointmentStatusPipe } from './pipes/appointment-status.pipe';
 
+import { RecaptchaModule } from 'ng-recaptcha';
+
 
 @NgModule({
   declarations: [
@@ -110,6 +112,7 @@ import { AppointmentStatusPipe } from './pipes/appointment-status.pipe';
     MatMomentDateModule, MatDialogModule,MatListModule,MatTableModule
     ,MatCheckboxModule, MatSlideToggleModule, MatPaginatorModule, MatTooltipModule
     // AngularFontAwesomeModule,FontAwesomeModule
+    , RecaptchaModule
   ],
   providers: [ { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
   { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
