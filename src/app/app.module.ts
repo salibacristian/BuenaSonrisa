@@ -61,6 +61,8 @@ import { DatePipe } from './pipes/date.pipe';
 import { AppointmentStatusPipe } from './pipes/appointment-status.pipe';
 
 import { RecaptchaModule } from 'ng-recaptcha';
+import { ChartComponent } from './components/chart/chart.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 
 @NgModule({
@@ -88,7 +90,8 @@ import { RecaptchaModule } from 'ng-recaptcha';
     ConfirmDialogComponent,
     FilterBySpecialtyPipe,
     DatePipe,
-    AppointmentStatusPipe
+    AppointmentStatusPipe,
+    ChartComponent
     ],
   entryComponents: [DialogOverviewExampleDialog, AddSpecialtyDialog, UserSpecialtiesDialog, ConfirmDialogComponent],
   imports: [
@@ -112,7 +115,7 @@ import { RecaptchaModule } from 'ng-recaptcha';
     MatMomentDateModule, MatDialogModule,MatListModule,MatTableModule
     ,MatCheckboxModule, MatSlideToggleModule, MatPaginatorModule, MatTooltipModule
     // AngularFontAwesomeModule,FontAwesomeModule
-    , RecaptchaModule
+    , RecaptchaModule, HighchartsChartModule
   ],
   providers: [ { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
   { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
