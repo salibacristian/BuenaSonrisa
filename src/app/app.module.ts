@@ -30,6 +30,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatMenuModule} from '@angular/material/menu';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
@@ -109,11 +110,12 @@ import { HighchartsChartModule } from 'highcharts-angular';
     BrowserAnimationsModule,
     NgbModule, 
     MatTabsModule,MatIconModule,MatCardModule
-    ,MatButtonModule,MatProgressSpinnerModule
-    ,MatInputModule,MatFormFieldModule,MatSelectModule,MatToolbarModule
-    ,MatDatepickerModule, // provides moment date adapter
-    MatMomentDateModule, MatDialogModule,MatListModule,MatTableModule
-    ,MatCheckboxModule, MatSlideToggleModule, MatPaginatorModule, MatTooltipModule
+    , MatButtonModule,MatProgressSpinnerModule
+    , MatInputModule, MatFormFieldModule, MatSelectModule, MatToolbarModule
+    , MatDatepickerModule // provides moment date adapter
+    , MatMomentDateModule, MatDialogModule,MatListModule,MatTableModule
+    , MatCheckboxModule, MatSlideToggleModule, MatPaginatorModule, MatTooltipModule
+    , MatMenuModule
     // AngularFontAwesomeModule,FontAwesomeModule
     , RecaptchaModule, HighchartsChartModule
   ],

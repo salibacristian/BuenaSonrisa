@@ -21,8 +21,7 @@ export class AppointmentsListComponent implements OnInit {
 
   async ngOnInit() {
     this.currentUser = await this.firebaseService.getAuthCurrentUser();
-    // this.displayedColumns = ['Fecha', 'Paciente', 'Profesional', 'Estado'];
-    this.displayedColumns = ['Fecha', 'Paciente', 'Profesional', 'Estado'];
+    this.displayedColumns = ['Fecha', 'Paciente', 'Profesional', 'Estado', 'Acciones'];
 
     if(this.currentUser.type == UserType.Paciente)
       this.displayedColumns.splice(1,1);
