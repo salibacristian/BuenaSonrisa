@@ -46,7 +46,7 @@ export class FirebaseService {
       return false;
     let decodedToken = this.jwtHelper.decodeToken(token);
     let sessionUserName = sessionStorage.getItem('userName');
-    return token && !this.jwtHelper.isTokenExpired(token) && decodedToken.email.toLowerCase() == sessionUserName.toLowerCase();
+    return token && !this.jwtHelper.isTokenExpired(token) && sessionUserName && decodedToken.email.toLowerCase() == sessionUserName.toLowerCase();
 
   }
 
