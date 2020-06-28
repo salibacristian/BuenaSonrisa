@@ -44,6 +44,20 @@
             </mat-icon>
             <span>Cancelar Turno</span>
           </button>
+          <button mat-menu-item *ngIf="showReview(appointment)"  
+          (click)="openReview(appointment)">
+            <mat-icon aria-hidden="false">
+              chat
+            </mat-icon>
+            <span>Reseña</span>
+          </button>
+          <button mat-menu-item *ngIf="showSurvey(appointment)"  
+          (click)="openSurvey(appointment)">
+            <mat-icon aria-hidden="false">
+              comment
+            </mat-icon>
+            <span>Encuesta</span>
+          </button>
         </mat-menu>
         </mat-cell>
     </ng-container>

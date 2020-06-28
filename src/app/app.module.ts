@@ -64,6 +64,8 @@ import { AppointmentStatusPipe } from './pipes/appointment-status.pipe';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { ChartComponent } from './components/chart/chart.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { ReviewComponent } from './components/review/review.component';
+import { SurveyComponent } from './components/survey/survey.component';
 
 
 @NgModule({
@@ -92,9 +94,11 @@ import { HighchartsChartModule } from 'highcharts-angular';
     FilterBySpecialtyPipe,
     DatePipe,
     AppointmentStatusPipe,
-    ChartComponent
+    ChartComponent,
+    ReviewComponent,
+    SurveyComponent
     ],
-  entryComponents: [DialogOverviewExampleDialog, AddSpecialtyDialog, UserSpecialtiesDialog, ConfirmDialogComponent],
+  entryComponents: [DialogOverviewExampleDialog, AddSpecialtyDialog, UserSpecialtiesDialog, ConfirmDialogComponent, ReviewComponent, SurveyComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

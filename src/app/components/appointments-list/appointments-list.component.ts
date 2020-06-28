@@ -5,6 +5,8 @@ import { Appointment, AppointmentStatus } from 'src/app/model/Appointment';
 import { UserType, User } from 'src/app/model/User';
 import { MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ReviewComponent } from '../review/review.component';
+import { SurveyComponent } from '../survey/survey.component';
 
 @Component({
   selector: 'app-appointments-list',
@@ -52,6 +54,15 @@ export class AppointmentsListComponent implements OnInit {
         && this.currentUser.type != UserType.Paciente;
   }
 
+  showReview(a: Appointment){
+   return (a.status == AppointmentStatus.Aceptado && this.currentUser.type != UserType.Paciente) 
+   || a.status == AppointmentStatus.Finalizado;    
+  }
+
+  showSurvey(a: Appointment){
+    return true;// a.status == AppointmentStatus.Finalizado;    
+  }
+
   async onchangeAppointmentStatus(appointment: Appointment, status: AppointmentStatus){
     var title = status == AppointmentStatus.Aceptado ? "Confirmar Turno" : "Cancelar Turno";
     var message = status == AppointmentStatus.Aceptado ? "Desea confirmar el turno?" : "Esta seguro que desea cancelar el turno?";
@@ -66,6 +77,30 @@ export class AppointmentsListComponent implements OnInit {
       appointment.status = status;
       this.firebaseService.updateAppointmentStatus(appointment);  
     }
+  }
+
+  openReview(appointment: Appointment){
+    const dialogRef = this.dialog.open(ReviewComponent, {
+      width: '250px',
+      data: {
+        appointment: appointment
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  openSurvey(appointment: Appointment){
+    const dialogRef = this.dialog.open(SurveyComponent, {
+      width: '250px',
+      data: {
+        appointment: appointment
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
 
