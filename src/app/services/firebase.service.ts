@@ -332,4 +332,11 @@ export class FirebaseService {
     activeRef.update({ review: review });
   }
 
+  saveSurvey(appointment: Appointment) {
+    var db = firebase.firestore();
+    var activeRef = db.collection('appointments').doc(appointment.docId);
+    var survey: any = {...appointment.survey};
+    activeRef.update({ survey: survey });
+  }
+
 }

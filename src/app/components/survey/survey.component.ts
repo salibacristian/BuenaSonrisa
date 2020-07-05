@@ -12,13 +12,16 @@ export interface DialogData {
   styleUrls: ['./survey.component.css']
 })
 export class SurveyComponent {
-
+  indeterminate: boolean;
   constructor(
     public dialogRef: MatDialogRef<SurveyComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+      this.indeterminate = this.data.appointment.survey.returnSameProfessional == null;
+    }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
+  
 
 }

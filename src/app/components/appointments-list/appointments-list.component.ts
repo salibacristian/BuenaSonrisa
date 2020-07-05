@@ -8,6 +8,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 import { ReviewComponent } from '../review/review.component';
 import { SurveyComponent } from '../survey/survey.component';
 import { Review } from 'src/app/model/Review';
+import { Survey } from 'src/app/model/Survey';
 
 @Component({
   selector: 'app-appointments-list',
@@ -99,15 +100,20 @@ export class AppointmentsListComponent implements OnInit {
   }
 
   openSurvey(appointment: Appointment){
+    if(!appointment.survey)
+      appointment.survey = new Survey(null,null,"",null);
+    var disabled = this.currentUser.type != UserType.Paciente;
     const dialogRef = this.dialog.open(SurveyComponent, {
       width: '500px',
       data: {
-        appointment: appointment
+        appointment: appointment,
+        disabled: disabled
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
+      this.firebaseService.saveSurvey(appointment);
     });
   }
 
