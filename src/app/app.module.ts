@@ -31,6 +31,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatSliderModule} from '@angular/material/slider';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
@@ -119,7 +120,7 @@ import { SurveyComponent } from './components/survey/survey.component';
     , MatDatepickerModule // provides moment date adapter
     , MatMomentDateModule, MatDialogModule,MatListModule,MatTableModule
     , MatCheckboxModule, MatSlideToggleModule, MatPaginatorModule, MatTooltipModule
-    , MatMenuModule
+    , MatMenuModule, MatSliderModule
     // AngularFontAwesomeModule,FontAwesomeModule
     , RecaptchaModule, HighchartsChartModule
   ],

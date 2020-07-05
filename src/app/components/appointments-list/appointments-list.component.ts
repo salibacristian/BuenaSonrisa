@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { ReviewComponent } from '../review/review.component';
 import { SurveyComponent } from '../survey/survey.component';
+import { Review } from 'src/app/model/Review';
 
 @Component({
   selector: 'app-appointments-list',
@@ -60,7 +61,7 @@ export class AppointmentsListComponent implements OnInit {
   }
 
   showSurvey(a: Appointment){
-    return true;// a.status == AppointmentStatus.Finalizado;    
+    return a.status == AppointmentStatus.Finalizado;
   }
 
   async onchangeAppointmentStatus(appointment: Appointment, status: AppointmentStatus){
@@ -80,26 +81,33 @@ export class AppointmentsListComponent implements OnInit {
   }
 
   openReview(appointment: Appointment){
+    if(!appointment.review)
+      appointment.review = new Review("",null,null);
+    var disabled = this.currentUser.type != UserType.Profesional;
     const dialogRef = this.dialog.open(ReviewComponent, {
-      width: '250px',
+      width: '500px',
       data: {
-        appointment: appointment
+        appointment: appointment,
+        disabled: disabled
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
+     console.log(result);
+     this.firebaseService.saveReview(appointment);
     });
   }
 
   openSurvey(appointment: Appointment){
     const dialogRef = this.dialog.open(SurveyComponent, {
-      width: '250px',
+      width: '500px',
       data: {
         appointment: appointment
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
     });
   }
 
