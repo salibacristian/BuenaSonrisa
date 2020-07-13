@@ -1,17 +1,14 @@
 export class Survey{
-    id: string;
-    appointmentId: string;
-    clinicPoints: number;
+    satisfactionPoints: number;
     specialistPoints: number;
     comment: string;
+    returnSameProfessional: boolean;
 
-
-
-    constructor(appointmentId: string, clinicPoints: number, specialistPoints: number, comment: string){
-        this.appointmentId = appointmentId;
-        this.clinicPoints = clinicPoints;
+    constructor(satisfactionPoints: number,specialistPoints:number, comment: string, returnSameProfessional: boolean){
+        this.satisfactionPoints = satisfactionPoints;
         this.specialistPoints = specialistPoints;
         this.comment = comment;
+        this.returnSameProfessional = returnSameProfessional;
     }   
 
 }

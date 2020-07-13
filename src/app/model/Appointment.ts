@@ -1,4 +1,6 @@
 import {User} from './User'
+import { Review } from './Review';
+import { Survey } from './Survey';
 
 export class Appointment{
     docId: string;
@@ -6,6 +8,8 @@ export class Appointment{
     client: User;
     status: AppointmentStatus;
     date: any;
+    review: Review;
+    survey: Survey;
 
     constructor(specialist: User, client: User, status: AppointmentStatus, date: Date){
         this.specialist = specialist;

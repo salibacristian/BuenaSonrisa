@@ -30,6 +30,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatSliderModule} from '@angular/material/slider';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
@@ -63,6 +65,8 @@ import { AppointmentStatusPipe } from './pipes/appointment-status.pipe';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { ChartComponent } from './components/chart/chart.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { ReviewComponent } from './components/review/review.component';
+import { SurveyComponent } from './components/survey/survey.component';
 
 
 @NgModule({
@@ -91,9 +95,11 @@ import { HighchartsChartModule } from 'highcharts-angular';
     FilterBySpecialtyPipe,
     DatePipe,
     AppointmentStatusPipe,
-    ChartComponent
+    ChartComponent,
+    ReviewComponent,
+    SurveyComponent
     ],
-  entryComponents: [DialogOverviewExampleDialog, AddSpecialtyDialog, UserSpecialtiesDialog, ConfirmDialogComponent],
+  entryComponents: [DialogOverviewExampleDialog, AddSpecialtyDialog, UserSpecialtiesDialog, ConfirmDialogComponent, ReviewComponent, SurveyComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -109,11 +115,12 @@ import { HighchartsChartModule } from 'highcharts-angular';
     BrowserAnimationsModule,
     NgbModule, 
     MatTabsModule,MatIconModule,MatCardModule
-    ,MatButtonModule,MatProgressSpinnerModule
-    ,MatInputModule,MatFormFieldModule,MatSelectModule,MatToolbarModule
-    ,MatDatepickerModule, // provides moment date adapter
-    MatMomentDateModule, MatDialogModule,MatListModule,MatTableModule
-    ,MatCheckboxModule, MatSlideToggleModule, MatPaginatorModule, MatTooltipModule
+    , MatButtonModule,MatProgressSpinnerModule
+    , MatInputModule, MatFormFieldModule, MatSelectModule, MatToolbarModule
+    , MatDatepickerModule // provides moment date adapter
+    , MatMomentDateModule, MatDialogModule,MatListModule,MatTableModule
+    , MatCheckboxModule, MatSlideToggleModule, MatPaginatorModule, MatTooltipModule
+    , MatMenuModule, MatSliderModule
     // AngularFontAwesomeModule,FontAwesomeModule
     , RecaptchaModule, HighchartsChartModule
   ],

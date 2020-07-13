@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>Encuesta</h1>
+<div mat-dialog-content>
+    <mat-card class="example-result-card">
+        <mat-card-content>
+            <mat-form-field appearance="fill" class="maxWidth">
+                <mat-label>Dejanos tus comentarios:</mat-label>
+                <textarea matInput     
+                [disabled]="data.disabled" 
+                [(ngModel)]="data.appointment.survey.comment"></textarea>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Puntaje para el profesional {{data.appointment.specialist.name}}</mat-label>
+                <input matInput type="number" placeholder="1 (muy mal). 5 (regular). 10 (muy bien)" min="1" max="10" 
+                [(ngModel)]="data.appointment.survey.specialistPoints"  [disabled]="data.disabled" >
+                <span matSuffix>puntos</span>
+            </mat-form-field>
+            <mat-checkbox
+            [(ngModel)]="data.appointment.survey.returnSameProfessional"
+            [(indeterminate)]="indeterminate"
+            [labelPosition]="before">
+          Volveré a atenderme con el profesional
+        </mat-checkbox>
+            <h2>Nivel de satisfación</h2>
+            <mat-slider class="maxWidth" [max]="10" [min]="1" [thumbLabel]="true" [tickInterval]="1" [step]="1"
+                [(ngModel)]="data.appointment.survey.satisfactionPoints"  [disabled]="data.disabled" >
+            </mat-slider>
+        </mat-card-content>
+    </mat-card>
+
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="data.appointment" cdkFocusInitial>Aceptar</button>
+</div>

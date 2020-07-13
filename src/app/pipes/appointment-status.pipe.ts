@@ -9,7 +9,7 @@ export class AppointmentStatusPipe implements PipeTransform {
   transform(status: AppointmentStatus, ...args: any[]): any {
    switch (status) {
      case AppointmentStatus.Pendiente:
-       return "Pendiente de Confirmación";
+       return "Esperando Confirmación";
        case AppointmentStatus.Aceptado:
         return "Confirmado";
        case AppointmentStatus.Finalizado:

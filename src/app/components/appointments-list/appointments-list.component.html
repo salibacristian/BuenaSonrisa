@@ -18,14 +18,48 @@
       <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
       <mat-cell *matCellDef="let appointment"> 
           {{appointment.status | appointmentStatus }} 
-          <mat-icon *ngIf="canCancelAppointment(appointment)" style="cursor:pointer;" aria-hidden="false" matTooltip="Cancelar Turno" color="accent" 
+          <!-- 
+          -->
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Acciones">
+      <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+      <mat-cell *matCellDef="let appointment"> 
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item  *ngIf="canAcceptAppointment(appointment)"
+          (click)="onchangeAppointmentStatus(appointment, 2)">
+            <mat-icon aria-hidden="false">
+            check
+           </mat-icon>
+            <span>Aceptar Turno</span>
+          </button>
+          <button mat-menu-item *ngIf="canCancelAppointment(appointment)"  
           (click)="onchangeAppointmentStatus(appointment, 4)">
-            clear
-          </mat-icon>
-          <mat-icon  *ngIf="canAcceptAppointment(appointment)" style="cursor:pointer;" aria-hidden="false" matTooltip="Aceptar Turno" color="primary"
-           (click)="onchangeAppointmentStatus(appointment, 2)">
-           check
-          </mat-icon>
+            <mat-icon aria-hidden="false">
+              clear
+            </mat-icon>
+            <span>Cancelar Turno</span>
+          </button>
+          <!-- *ngIf="showReview(appointment)"   -->
+          <button mat-menu-item           
+          (click)="openReview(appointment)">
+            <mat-icon aria-hidden="false">
+              chat
+            </mat-icon>
+            <span>Reseña</span>
+          </button>
+          <button mat-menu-item *ngIf="showSurvey(appointment)"  
+          (click)="openSurvey(appointment)">
+            <mat-icon aria-hidden="false">
+              comment
+            </mat-icon>
+            <span>Encuesta</span>
+          </button>
+        </mat-menu>
         </mat-cell>
     </ng-container>
   

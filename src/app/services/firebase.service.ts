@@ -42,16 +42,16 @@ export class FirebaseService {
 
   isAuthenticated() {
     let token = localStorage.getItem("token");
-    if(!token)
+    if (!token)
       return false;
     let decodedToken = this.jwtHelper.decodeToken(token);
     let sessionUserName = sessionStorage.getItem('userName');
-    return token && !this.jwtHelper.isTokenExpired(token) && decodedToken.email.toLowerCase() == sessionUserName.toLowerCase();
+    return token && !this.jwtHelper.isTokenExpired(token) && sessionUserName && decodedToken.email.toLowerCase() == sessionUserName.toLowerCase();
 
   }
 
   async getAuthCurrentUser() {
-    await this.delay(1000);//para que firebase tenga disponible el usuario actual
+    await this.delay(3000);//para que firebase tenga disponible el usuario actual
     var authCurrentUser = firebase.auth().currentUser;
     if (authCurrentUser)
       return await this.getUser(authCurrentUser.uid);
@@ -213,7 +213,7 @@ export class FirebaseService {
 
   async getUserByEmail(email: string) {
     let usrsRef = await db.collection('users')
-      .where("email","==", email.toLowerCase())
+      .where("email", "==", email.toLowerCase())
       .get();
     return usrsRef.docs.shift().data() as User;
   }
@@ -236,12 +236,12 @@ export class FirebaseService {
     var user = firebase.auth().currentUser;
     var db = firebase.firestore();
     var specialistDb = await db.collection('users')
-    .where("id", "==", appointment.specialist.id)
-    .get();
-      
+      .where("id", "==", appointment.specialist.id)
+      .get();
+
     var clientDb = await db.collection('users')
-    .where("id", "==", user.uid)
-    .get();
+      .where("id", "==", user.uid)
+      .get();
 
     var specialistRef = specialistDb.docs.shift().ref;
     var clientRef = clientDb.docs.shift().ref;
@@ -255,7 +255,7 @@ export class FirebaseService {
 
   }
 
-  async getAppointments(){
+  async getAppointments() {
     let appointmentRef = await db.collection('appointments').get();
     var rv = [];
     for (let doc of appointmentRef.docs) {
@@ -320,9 +320,23 @@ export class FirebaseService {
   async updateAppointmentStatus(appointment: Appointment) {
     var db = firebase.firestore();
     var activeRef = await db.collection('appointments').doc(appointment.docId);
-     
+
     activeRef.update({ status: appointment.status });
 
+  }
+
+  saveReview(appointment: Appointment) {
+    var db = firebase.firestore();
+    var activeRef = db.collection('appointments').doc(appointment.docId);
+    var review: any = {...appointment.review};
+    activeRef.update({ review: review });
+  }
+
+  saveSurvey(appointment: Appointment) {
+    var db = firebase.firestore();
+    var activeRef = db.collection('appointments').doc(appointment.docId);
+    var survey: any = {...appointment.survey};
+    activeRef.update({ survey: survey });
   }
 
 }

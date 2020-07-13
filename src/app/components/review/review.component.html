@@ -1,0 +1,51 @@
+<h1 mat-dialog-title>Reseña</h1>
+<div mat-dialog-content>
+    <mat-card class="example-result-card">
+        <mat-card-content>
+            <mat-form-field appearance="fill" class="maxWidth">
+                <mat-label>Descripción</mat-label>
+                <textarea matInput [disabled]="data.disabled" [(ngModel)]="data.appointment.review.comment"></textarea>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Altura</mat-label>
+                <input matInput type="number" placeholder="Ej. 180" min="50" max="300"
+                    [(ngModel)]="data.appointment.review.height" [disabled]="data.disabled">
+                <span matSuffix>cm</span>
+            </mat-form-field>
+            <h2>Temperatura</h2>
+            <mat-slider class="maxWidth" [max]="42" [min]="35" [thumbLabel]="true" [tickInterval]="0.5" [step]="0.5"
+                [(ngModel)]="data.appointment.review.temperature" [disabled]="data.disabled">
+            </mat-slider>
+            <!-- campos dinamicos -->
+            <h2>Otros Datos</h2>
+            <mat-form-field appearance="fill">
+                <mat-label>Descripción</mat-label>
+                <input matInput type="text" placeholder="agrege nuevo dato" [(ngModel)]="newField.key"
+                    [disabled]="data.disabled">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Valor</mat-label>
+                <input matInput type="text" placeholder="valor del dato" [(ngModel)]="newField.value"
+                    [disabled]="data.disabled">
+            </mat-form-field>
+            <br>
+                <button mat-raised-button color="primary" (click)="addNewFiled()"  [disabled]="!canAdd()">
+                    <mat-icon aria-hidden="false">add</mat-icon>
+                    Agregar
+                </button>
+            <div *ngIf="data.appointment.review.otherFields">
+                <mat-form-field *ngFor="let field of data.appointment.review.otherFields" appearance="fill">
+                    <mat-label>{{field.key}}</mat-label>
+                    <input matInput type="text" [(ngModel)]="field.value" disabled>
+                </mat-form-field>
+            </div>
+
+
+        </mat-card-content>
+    </mat-card>
+
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="data.appointment" cdkFocusInitial>Aceptar</button>
+</div>

@@ -5,6 +5,10 @@ import { Appointment, AppointmentStatus } from 'src/app/model/Appointment';
 import { UserType, User } from 'src/app/model/User';
 import { MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ReviewComponent } from '../review/review.component';
+import { SurveyComponent } from '../survey/survey.component';
+import { Review } from 'src/app/model/Review';
+import { Survey } from 'src/app/model/Survey';
 
 @Component({
   selector: 'app-appointments-list',
@@ -21,8 +25,7 @@ export class AppointmentsListComponent implements OnInit {
 
   async ngOnInit() {
     this.currentUser = await this.firebaseService.getAuthCurrentUser();
-    // this.displayedColumns = ['Fecha', 'Paciente', 'Profesional', 'Estado'];
-    this.displayedColumns = ['Fecha', 'Paciente', 'Profesional', 'Estado'];
+    this.displayedColumns = ['Fecha', 'Paciente', 'Profesional', 'Estado', 'Acciones'];
 
     if(this.currentUser.type == UserType.Paciente)
       this.displayedColumns.splice(1,1);
@@ -53,6 +56,15 @@ export class AppointmentsListComponent implements OnInit {
         && this.currentUser.type != UserType.Paciente;
   }
 
+  showReview(a: Appointment){
+   return (a.status == AppointmentStatus.Aceptado && this.currentUser.type != UserType.Paciente) 
+   || a.status == AppointmentStatus.Finalizado;    
+  }
+
+  showSurvey(a: Appointment){
+    return a.status == AppointmentStatus.Finalizado;
+  }
+
   async onchangeAppointmentStatus(appointment: Appointment, status: AppointmentStatus){
     var title = status == AppointmentStatus.Aceptado ? "Confirmar Turno" : "Cancelar Turno";
     var message = status == AppointmentStatus.Aceptado ? "Desea confirmar el turno?" : "Esta seguro que desea cancelar el turno?";
@@ -67,6 +79,42 @@ export class AppointmentsListComponent implements OnInit {
       appointment.status = status;
       this.firebaseService.updateAppointmentStatus(appointment);  
     }
+  }
+
+  openReview(appointment: Appointment){
+    if(!appointment.review)
+      appointment.review = new Review("",null,null);
+    var disabled = this.currentUser.type != UserType.Profesional;
+    const dialogRef = this.dialog.open(ReviewComponent, {
+      width: '500px',
+      data: {
+        appointment: appointment,
+        disabled: disabled
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     console.log(result);
+     this.firebaseService.saveReview(appointment);
+    });
+  }
+
+  openSurvey(appointment: Appointment){
+    if(!appointment.survey)
+      appointment.survey = new Survey(null,null,"",null);
+    var disabled = this.currentUser.type != UserType.Paciente;
+    const dialogRef = this.dialog.open(SurveyComponent, {
+      width: '500px',
+      data: {
+        appointment: appointment,
+        disabled: disabled
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      this.firebaseService.saveSurvey(appointment);
+    });
   }
 
 
