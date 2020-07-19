@@ -1,0 +1,18 @@
+<mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>{{data.user.name}}</mat-card-title>
+      <mat-card-subtitle>{{data.user.type | userType}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="{{data.user.imageUrl}}" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>
+      <b>Género: </b>{{data.user.gender | gender}}
+      </p>
+      <p>
+        <b>Nacimiento: </b>{{data.user.birthDate}}
+       </p>
+       <p>
+        <b>Email: </b>{{data.user.email}}
+       </p>
+    </mat-card-content>
+  </mat-card>
