@@ -67,6 +67,8 @@ import { ChartComponent } from './components/chart/chart.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ReviewComponent } from './components/review/review.component';
 import { SurveyComponent } from './components/survey/survey.component';
+import { UserCardComponent } from './components/user-card/user-card.component';
+import { GenderPipe } from './pipes/gender.pipe';
 
 
 @NgModule({
@@ -97,9 +99,11 @@ import { SurveyComponent } from './components/survey/survey.component';
     AppointmentStatusPipe,
     ChartComponent,
     ReviewComponent,
-    SurveyComponent
+    SurveyComponent,
+    UserCardComponent,
+    GenderPipe
     ],
-  entryComponents: [DialogOverviewExampleDialog, AddSpecialtyDialog, UserSpecialtiesDialog, ConfirmDialogComponent, ReviewComponent, SurveyComponent],
+  entryComponents: [DialogOverviewExampleDialog, AddSpecialtyDialog, UserSpecialtiesDialog, ConfirmDialogComponent, ReviewComponent, SurveyComponent, UserCardComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

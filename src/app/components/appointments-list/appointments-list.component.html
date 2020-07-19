@@ -13,12 +13,12 @@
 
   <ng-container matColumnDef="Paciente">
     <mat-header-cell *matHeaderCellDef> Paciente </mat-header-cell>
-    <mat-cell *matCellDef="let appointment"> {{appointment.client.name}} </mat-cell>
+    <mat-cell *matCellDef="let appointment"> <div class="link" (click)="openUserDialog(appointment.client)">{{appointment.client.name}}</div> </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Profesional">
     <mat-header-cell *matHeaderCellDef> Profesional </mat-header-cell>
-    <mat-cell *matCellDef="let appointment"> {{appointment.specialist.name}} </mat-cell>
+    <mat-cell *matCellDef="let appointment"> <div class="link" (click)="openUserDialog(appointment.specialist)">{{appointment.specialist.name}}</div> </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Estado">

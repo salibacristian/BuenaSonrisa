@@ -6,3 +6,8 @@ table {
   width: 50%;
   margin-left: 25%;
 }
+
+.link{
+  cursor: pointer;
+  color: steelblue;
+}

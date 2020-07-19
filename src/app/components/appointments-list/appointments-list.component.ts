@@ -9,6 +9,7 @@ import { ReviewComponent } from '../review/review.component';
 import { SurveyComponent } from '../survey/survey.component';
 import { Review } from 'src/app/model/Review';
 import { Survey } from 'src/app/model/Survey';
+import { UserCardComponent } from '../user-card/user-card.component';
 
 @Component({
   selector: 'app-appointments-list',
@@ -143,6 +144,20 @@ export class AppointmentsListComponent implements OnInit {
     }
 
 
+  }
+
+  openUserDialog(user: User){
+    const dialogRef = this.dialog.open(UserCardComponent, {
+      width: '500px',
+      data: {
+        user: user
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
   }
 
 
