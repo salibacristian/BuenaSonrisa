@@ -20,6 +20,6 @@
         Usuarios</button>
 </mat-card>
 
-<app-appointments-list></app-appointments-list>
-
-<!-- <app-chart></app-chart> -->
+<!-- <app-appointments-list></app-appointments-list> -->
+<!-- <button mat-raised-button color="primary" (click)="viewChart()">Ver Grafico</button> -->
+  <app-chart *ngIf = "chartData" [chartData]="chartData"></app-chart> 

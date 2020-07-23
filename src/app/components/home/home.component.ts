@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FirebaseService } from "../../services/firebase.service";
 import { User } from "../../model/User";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ChartDataDto } from '../Dtos/ChartDataDto';
 
 
 @Component({
@@ -10,6 +11,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  chartData: ChartDataDto;
 
   appointments = [];
   // currentUser: User  = JSON.parse(localStorage.getItem('prueba'));
@@ -21,6 +24,7 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit() {
     this.currentUser = await this.firebaseService.getAuthCurrentUser();
+    this.chartData = new ChartDataDto("spline", "sarasa", [12, 4, 2, 2, 4, 12], ["lun", "mar", "mie", "jue", "vie", "sab"], "eje y", "aca va el titulo");
 
   }
 
