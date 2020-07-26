@@ -69,6 +69,7 @@ import { ReviewComponent } from './components/review/review.component';
 import { SurveyComponent } from './components/survey/survey.component';
 import { UserCardComponent } from './components/user-card/user-card.component';
 import { GenderPipe } from './pipes/gender.pipe';
+import { DisabledDirective } from './directives/disabled.directive';
 
 
 @NgModule({
@@ -101,7 +102,8 @@ import { GenderPipe } from './pipes/gender.pipe';
     ReviewComponent,
     SurveyComponent,
     UserCardComponent,
-    GenderPipe
+    GenderPipe,
+    DisabledDirective
     ],
   entryComponents: [DialogOverviewExampleDialog, AddSpecialtyDialog, UserSpecialtiesDialog, ConfirmDialogComponent, ReviewComponent, SurveyComponent, UserCardComponent],
   imports: [
