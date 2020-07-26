@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
 
   usuario = '';
   clave = '';
+  validatedCaptcha = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +30,10 @@ export class LoginComponent implements OnInit {
   completar(email,pass){
     this.usuario=email;
     this.clave=pass;
+  }
+
+  onCheckCaptcha(e){
+    console.log(e)
   }
 
 }
