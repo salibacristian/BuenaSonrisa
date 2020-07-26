@@ -16,8 +16,7 @@
       <input type="checkbox" [appDisabled]="validatedCaptcha" [(ngModel)]="validatedCaptcha" (ngModelChange)="onCheckCaptcha($event)" name="validatedCaptcha">
      
       <br>
-      <button [disabled] = "!validatedCaptcha"  class="btnFooter"
-        (click)="Entrar()">Ingresar</button>
+      <button class="btnFooter" mat-raised-button color="primary" (click)="Entrar()" [disabled] = "!validatedCaptcha">Ingresar</button>
       <button class="btnFooter" mat-stroked-button color="primary" routerLink="/register">Registrarse</button>
     </div>
   </form>
