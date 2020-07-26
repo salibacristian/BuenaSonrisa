@@ -7,6 +7,7 @@ import { AppointmentComponent } from './components/appointment/appointment.compo
 import { AuthGuard } from './helpers/auth.guard';
 import { AvailabilityComponent } from './components/availability/availability.component';
 import { UsersComponent } from './components/users/users.component';
+import { ReportsComponent } from './components/reports/reports.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
  {path: 'login' , component: LoginComponent, data: {animation: 'Login'}},
  {path: 'newAppointment' , component: AppointmentComponent, canActivate: [AuthGuard]},
  {path: 'availability' , component: AvailabilityComponent, canActivate: [AuthGuard]},
- {path: 'users' , component: UsersComponent, canActivate: [AuthGuard]}
+ {path: 'users' , component: UsersComponent, canActivate: [AuthGuard]},
+ {path: 'reports' , component: ReportsComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

@@ -1,0 +1,11 @@
+<mat-spinner diameter="50" *ngIf="loading"></mat-spinner>
+<mat-form-field *ngIf="!loading">
+    <mat-label>Reporte</mat-label>
+    <mat-select [(ngModel)]="selectedReport" name="selectedReport" (ngModelChange)="onChangeReport($event)">
+      <mat-option *ngFor="let reportName of reportsNames" [value]="reportName">
+        {{reportName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+<app-chart *ngIf = "chartData" [chartData]="chartData"></app-chart> 

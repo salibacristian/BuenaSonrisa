@@ -12,7 +12,7 @@ import { ChartDataDto } from '../Dtos/ChartDataDto';
 })
 export class HomeComponent implements OnInit {
 
-  chartData: ChartDataDto;
+
 
   appointments = [];
   // currentUser: User  = JSON.parse(localStorage.getItem('prueba'));
@@ -24,7 +24,6 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit() {
     this.currentUser = await this.firebaseService.getAuthCurrentUser();
-    this.chartData = new ChartDataDto("spline", "sarasa", [12, 4, 2, 2, 4, 12], ["lun", "mar", "mie", "jue", "vie", "sab"], "eje y", "aca va el titulo");
 
   }
 
