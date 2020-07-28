@@ -23,7 +23,7 @@ export class ReviewComponent {
   addNewFiled() {
     if (!this.data.appointment.review.otherFields)
       this.data.appointment.review.otherFields = [];
-    this.data.appointment.review.otherFields.push(this.newField);
+    this.data.appointment.review.otherFields.push({...this.newField});
   }
 
 canAdd(){
