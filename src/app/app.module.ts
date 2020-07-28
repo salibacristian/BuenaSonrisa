@@ -70,6 +70,7 @@ import { SurveyComponent } from './components/survey/survey.component';
 import { UserCardComponent } from './components/user-card/user-card.component';
 import { GenderPipe } from './pipes/gender.pipe';
 import { ReportsComponent } from './components/reports/reports.component';
+import { DisabledDirective } from './directives/disabled.directive';
 
 
 @NgModule({
@@ -103,7 +104,8 @@ import { ReportsComponent } from './components/reports/reports.component';
     SurveyComponent,
     UserCardComponent,
     GenderPipe,
-    ReportsComponent
+    ReportsComponent,
+    DisabledDirective
     ],
   entryComponents: [DialogOverviewExampleDialog, AddSpecialtyDialog, UserSpecialtiesDialog, ConfirmDialogComponent, ReviewComponent, SurveyComponent, UserCardComponent],
   imports: [
