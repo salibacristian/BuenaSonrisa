@@ -4,7 +4,7 @@
         <mat-card-content>
             <mat-form-field>
                 <mat-label>Especialidad</mat-label>
-                <mat-select [(ngModel)]="data.appointment.review.specialty" name="specialty">
+                <mat-select [(ngModel)]="data.appointment.review.specialty" name="specialty"  [disabled]="data.disabled">
                   <mat-option *ngFor="let specialty of data.appointment.specialist.specialties" [value]="specialty">
                     {{specialty}}
                   </mat-option>
