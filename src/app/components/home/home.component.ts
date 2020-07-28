@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FirebaseService } from "../../services/firebase.service";
 import { User } from "../../model/User";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ChartDataDto } from '../Dtos/ChartDataDto';
 
 
 @Component({
@@ -10,6 +11,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+
 
   appointments = [];
   // currentUser: User  = JSON.parse(localStorage.getItem('prueba'));

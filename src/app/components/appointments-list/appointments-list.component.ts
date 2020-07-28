@@ -87,7 +87,7 @@ export class AppointmentsListComponent implements OnInit {
 
   openReview(appointment: Appointment) {
     if (!appointment.review)
-      appointment.review = new Review("", null, null);
+      appointment.review = new Review("", "", null, null);
     var disabled = this.currentUser.type != UserType.Profesional;
     const dialogRef = this.dialog.open(ReviewComponent, {
       width: '500px',
