@@ -47,8 +47,10 @@ export class ReportsComponent implements OnInit {
         newChartDataDto = this.appointmentsBySpecialty();
         break;
       case "Pacientes por Especialidad":
+        newChartDataDto = this.clientsBySpecialty();
         break;
       case "Medicos por Especialidad":
+        newChartDataDto = this.specialistBySpecialty();
         break;
     }
     this.chartData = newChartDataDto;
@@ -65,7 +67,7 @@ export class ReportsComponent implements OnInit {
       var day = date.getDay();
       counts[day - 1]++;
     });
-    return new ChartDataDto("column", "Día", counts, ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"], "Cantidad de Turnos", "Cantidad de Turnos por Día");
+    return new ChartDataDto("spline", "Día", counts, ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"], "Cantidad de Turnos", "Cantidad de Turnos por Día");
   }
 
   appointmentsBySpecialty() {
@@ -86,7 +88,82 @@ export class ReportsComponent implements OnInit {
         }
       }
     });
-    return new ChartDataDto("column", "Día", specialties.map(x => x.count), specialties.map(x => x.name), "Cantidad de Turnos", "Cantidad de Turnos por Día");
+    return new ChartDataDto("line", "Especialidad", specialties.map(x => x.count), specialties.map(x => x.name), "Cantidad de Turnos", "Cantidad de Turnos por Especialidad");
+  }
+
+  clientsBySpecialty() {
+    var specialtyClients = [];
+
+    this.appointments.forEach(a => {
+      if (a.review) {
+        var specialtyClient = specialtyClients.find(function (sc) {
+          return sc.specialty == a.review.specialty && sc.client == a.client.email;
+        });
+        if (!specialtyClient)
+          specialtyClients.push({ specialty: a.review.specialty, client: a.client.email, count: 1 })
+        else {
+          specialtyClients.forEach(function (sc) {
+            if (sc.specialty == specialtyClient.specialty && sc.client == a.client.email)
+              sc.count++;
+          });
+        }
+      }
+    });
+
+    var clientsBySpecialty = [];
+    specialtyClients.map(x => x.specialty)
+      .forEach(function (s) {
+        if (!clientsBySpecialty.some(x => x.specialty == s)) {
+
+          var sum = specialtyClients.reduce(function (total, current) {
+            if (current.specialty == s) {
+              return total + current.count;
+            }
+            return total;
+          }, 0);
+          clientsBySpecialty.push({ specialty: s, count: sum });
+        }
+      });
+
+
+    return new ChartDataDto("column", "Especialidad", clientsBySpecialty.map(x => x.count), clientsBySpecialty.map(x => x.specialty), "Cantidad de Pacientes", "Pacientes por Especialidad");
+  }
+
+  specialistBySpecialty() {
+    var specialtyClients = [];
+
+    this.appointments.forEach(a => {
+      if (a.review) {
+        var specialtyClient = specialtyClients.find(function (sc) {
+          return sc.specialty == a.review.specialty && sc.client == a.specialist.email;
+        });
+        if (!specialtyClient)
+          specialtyClients.push({ specialty: a.review.specialty, client: a.specialist.email, count: 1 })
+        else {
+          specialtyClients.forEach(function (sc) {
+            if (sc.specialty == specialtyClient.specialty && sc.client == a.specialist.email)
+              sc.count++;
+          });
+        }
+      }
+    });
+
+    var clientsBySpecialty = [];
+    specialtyClients.map(x => x.specialty)
+      .forEach(function (s) {
+        if (!clientsBySpecialty.some(x => x.specialty == s)) {
+
+          var sum = specialtyClients.reduce(function (total, current) {
+            if (current.specialty == s) {
+              return total + current.count;
+            }
+            return total;
+          }, 0);
+          clientsBySpecialty.push({ specialty: s, count: sum });
+        }
+      });
+
+    return new ChartDataDto("column", "Especialidad", clientsBySpecialty.map(x => x.count), clientsBySpecialty.map(x => x.specialty), "Cantidad de Especialistas", "Especialistas por Especialidad");
   }
 
 
