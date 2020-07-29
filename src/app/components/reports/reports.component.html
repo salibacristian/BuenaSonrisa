@@ -1,4 +1,8 @@
-<mat-spinner diameter="50" *ngIf="loading"></mat-spinner>
+<button mat-raised-button color="primary" routerLink="/home">
+  <mat-icon aria-hidden="false">reply</mat-icon>
+  Volver</button>
+  <br> <br>
+  <mat-spinner diameter="50" *ngIf="loading"></mat-spinner>
 <mat-form-field *ngIf="!loading">
     <mat-label>Reporte</mat-label>
     <mat-select [(ngModel)]="selectedReport" name="selectedReport" (ngModelChange)="onChangeReport($event)">
