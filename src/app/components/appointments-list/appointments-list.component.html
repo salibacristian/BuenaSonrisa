@@ -51,8 +51,7 @@
           </mat-icon>
           <span>Cancelar Turno</span>
         </button>
-        <!-- *ngIf="showReview(appointment)"   -->
-        <button mat-menu-item (click)="openReview(appointment)">
+        <button mat-menu-item *ngIf="showReview(appointment)" (click)="openReview(appointment)">
           <mat-icon aria-hidden="false">
             chat
           </mat-icon>

@@ -99,7 +99,14 @@ export class AppointmentsListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-      this.firebaseService.saveReview(appointment);
+      if(this.currentUser.type == UserType.Profesional 
+        && appointment.review.specialty 
+        && appointment.review.comment 
+        && appointment.review.comment.length){
+          this.firebaseService.saveReview(appointment);
+          appointment.status = AppointmentStatus.Finalizado;
+          this.firebaseService.updateAppointmentStatus(appointment);
+        }
     });
   }
 

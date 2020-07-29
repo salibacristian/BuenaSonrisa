@@ -317,9 +317,9 @@ export class FirebaseService {
 
   }
 
-  async updateAppointmentStatus(appointment: Appointment) {
+   updateAppointmentStatus(appointment: Appointment) {
     var db = firebase.firestore();
-    var activeRef = await db.collection('appointments').doc(appointment.docId);
+    var activeRef = db.collection('appointments').doc(appointment.docId);
 
     activeRef.update({ status: appointment.status });
 
