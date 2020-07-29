@@ -23,6 +23,7 @@ export class AppointmentsListComponent implements OnInit {
   displayedColumns: string[] = [];
   currentUser: User;
   searchText: string;
+  loading: boolean = true;
 
   constructor(private firebaseService: FirebaseService, public dialog: MatDialog) { }
 
@@ -38,6 +39,7 @@ export class AppointmentsListComponent implements OnInit {
     this.appointments = await this.firebaseService.getAppointments();
     console.log(this.appointments);
     this.filterAppointments();
+    this.loading = false;
   }
 
   filterAppointments() {
