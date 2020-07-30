@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from "../../services/firebase.service";
 import { User, UserType, Gender } from "../../model/User";
+import { MatDialog } from '@angular/material';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+
 
 @Component({
   selector: 'app-register',
@@ -9,7 +12,7 @@ import { User, UserType, Gender } from "../../model/User";
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private firebaseService: FirebaseService) {
+  constructor(private firebaseService: FirebaseService, private dialog: MatDialog) {
   }
   returnToRoute = '/login';
   user: User = new User(1, '', '', new Date(), 3, '', '', [], []);
@@ -52,7 +55,12 @@ export class RegisterComponent implements OnInit {
     if(this.captchaOkey)
       this.firebaseService.register(this.user, this.password);
     else
-      alert("Confirme el captcha");
+      // alert("Confirme el captcha");
+
+       this.dialog.open(ConfirmDialogComponent, {
+        width: '250px',
+        data: { title: "Error", message: "Confirme el captcha" }
+      });
   }
 
 
