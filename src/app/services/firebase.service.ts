@@ -6,6 +6,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { User, UserType } from "../model/User";
 import { Appointment } from "../model/Appointment";
 import { AngularFireStorage } from '@angular/fire/storage';
+import swal from 'sweetalert2';
 
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
@@ -81,9 +82,23 @@ export class FirebaseService {
         var errorCode = error.code;
         var errorMessage = error.message;
         if (errorCode == 'auth/weak-password') {
-          alert('The password is too weak.');
+          // alert('The password is too weak.');
+          swal.fire({
+            title: 'Error.',
+            text: 'La clave es demasiado corta.',
+            showCancelButton: false,
+            showConfirmButton: true,
+            icon: "error"
+          });
         } else {
-          alert(errorMessage);
+          // alert(errorMessage);
+          swal.fire({
+            title: 'Error.',
+            text: errorMessage,
+            showCancelButton: false,
+            showConfirmButton: true,
+            icon: "error"
+          });
         }
         console.log(error);
       });
@@ -94,16 +109,37 @@ export class FirebaseService {
     var userDb = await this.getUserByEmail(user);
     if (userDb) {
       if (userDb.deleted) {
-        alert("Tu cuenta se encuentra deshabilitada");
+        // alert("Tu cuenta se encuentra deshabilitada");
+        swal.fire({
+          title: 'Error.',
+          text: "Tu cuenta se encuentra deshabilitada",
+          showCancelButton: false,
+          showConfirmButton: true,
+          icon: "error"
+        });
         return;
       }
       else if (userDb.disabled) {
-        alert("Tu cuenta aun no ha sido verificada por un administrador");
+        // alert("Tu cuenta aun no ha sido verificada por un administrador");
+        swal.fire({
+          title: 'Error.',
+          text: "Tu cuenta aun no ha sido verificada por un administrador",
+          showCancelButton: false,
+          showConfirmButton: true,
+          icon: "error"
+        });
         return;
       }
     }
     else {
-      alert("No se encontro al usuario " + user);
+      // alert("No se encontro al usuario " + user);
+      swal.fire({
+        title: 'Error.',
+        text: "No se encontro al usuario " + user,
+        showCancelButton: false,
+        showConfirmButton: true,
+        icon: "error"
+      });
       return;
     }
 
@@ -120,9 +156,23 @@ export class FirebaseService {
         var errorCode = error.code;
         var errorMessage = error.message;
         if (errorCode === 'auth/wrong-password') {
-          alert('Wrong password.');
+          // alert('Wrong password.');
+          swal.fire({
+            title: 'Error.',
+            text: "Clave incorrecta",
+            showCancelButton: false,
+            showConfirmButton: true,
+            icon: "error"
+          });
         } else {
-          alert(errorMessage);
+          // alert(errorMessage);
+          swal.fire({
+            title: 'Error.',
+            text: errorMessage,
+            showCancelButton: false,
+            showConfirmButton: true,
+            icon: "error"
+          });
         }
         console.log(error);
       });
@@ -215,7 +265,7 @@ export class FirebaseService {
     let usrsRef = await db.collection('users')
       .where("email", "==", email.toLowerCase())
       .get();
-      if(usrsRef)
+      if(usrsRef && usrsRef.docs && usrsRef.docs.shift())
         return usrsRef.docs.shift().data() as User;
       return null;
   }
