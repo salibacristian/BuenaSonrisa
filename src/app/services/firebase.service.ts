@@ -305,6 +305,14 @@ export class FirebaseService {
       date: appointment.date
     });
 
+    swal.fire({
+      title: 'Exito.',
+      text: "Turno reservado exitosamente.",
+      showCancelButton: false,
+      showConfirmButton: true,
+      icon: "success"
+    });
+
   }
 
   async getAppointments() {
