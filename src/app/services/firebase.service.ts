@@ -215,7 +215,9 @@ export class FirebaseService {
     let usrsRef = await db.collection('users')
       .where("email", "==", email.toLowerCase())
       .get();
-    return usrsRef.docs.shift().data() as User;
+      if(usrsRef)
+        return usrsRef.docs.shift().data() as User;
+      return null;
   }
 
 
