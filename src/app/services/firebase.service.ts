@@ -285,6 +285,14 @@ export class FirebaseService {
   // }
 
   async addAppointment(appointment: Appointment) {
+    var router = this.router;
+    swal.fire({
+      title: 'Exito.',
+      text: "Turno reservado exitosamente.",
+      showCancelButton: false,
+      showConfirmButton: true,
+      icon: "success"
+    });
     var user = firebase.auth().currentUser;
     var db = firebase.firestore();
     var specialistDb = await db.collection('users')
@@ -305,13 +313,7 @@ export class FirebaseService {
       date: appointment.date
     });
 
-    swal.fire({
-      title: 'Exito.',
-      text: "Turno reservado exitosamente.",
-      showCancelButton: false,
-      showConfirmButton: true,
-      icon: "success"
-    });
+    router.navigate(['/']);
 
   }
 
